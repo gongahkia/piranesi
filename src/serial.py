@@ -1,8 +1,11 @@
 # ----- REQUIRED IMPORTS -----
 
-import os
-from PIL import Image
 import io
+import os
+import tarfile
+from PIL import Image
+
+# ----- HELPER FUNCTIONS -----
 
 def compress_image(input_path, output_path, quality=85):
     """
@@ -33,10 +36,18 @@ def compress_images_in_folder(input_folder, output_folder, quality=85):
             compress_image(input_path, output_path, quality)
             print(f"Compressed {filename}")
 
-# ----- SAMPLE EXECUTION CODE -----
+def create_targz(source_dir, output_filename):
+    """
+    create a tar.gz archive of all images in a folder
+    """
+    with tarfile.open(output_filename, "w:gz") as tar:
+        for file in os.listdir(source_dir):
+            if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+                tar.add(os.path.join(source_dir, file), arcname=file)
 
-if __name__ == "__main__":
-    input_folder = "./../corpus/raw"
-    output_folder = "./../corpus/crush"
-    compress_images_in_folder(input_folder, output_folder, quality=85) # FUA to test this
-    decompress_image('path/to/compressed/image.jpg', 'path/to/decompressed/image.png') # FUA then to test this
+def extract_targz(archive_filename, extract_path):
+    """
+    extract all images from a tar.gz archive
+    """
+    with tarfile.open(archive_filename, "r:gz") as tar:
+        tar.extractall(path=extract_path)
