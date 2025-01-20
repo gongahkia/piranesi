@@ -6,7 +6,7 @@ repos:
       - id: check-json
       - id: check-case-conflict
   - repo: https://github.com/psf/black
-    rev: v23.1.0  
+    rev: 24.10.0  
     hooks:
       - id: black
         language_version: python3
