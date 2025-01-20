@@ -5,3 +5,8 @@ repos:
       - id: end-of-file-fixer
       - id: check-json
       - id: check-case-conflict
+  - repo: https://github.com/psf/black
+    rev: v23.1.0  
+    hooks:
+      - id: black
+        language_version: python3
