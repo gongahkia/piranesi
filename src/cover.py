@@ -28,5 +28,5 @@ def process_book_cover(image_path):
 
 if __name__ == "__main__":
     # FUA to test the below code 
-    processed_image = process_book_cover("")
+    processed_image = process_book_cover("")[1]
     processed_image.save("")

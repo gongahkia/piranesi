@@ -36,7 +36,7 @@ def compress_images_in_folder(input_folder, output_folder, quality=85):
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
-    input_folder = 'path/to/your/input/folder'
-    output_folder = 'path/to/your/output/folder'
-    compress_images_in_folder(input_folder, output_folder, quality=85)
-    decompress_image('path/to/compressed/image.jpg', 'path/to/decompressed/image.png')
+    input_folder = "./../corpus/raw"
+    output_folder = "./../corpus/crush"
+    compress_images_in_folder(input_folder, output_folder, quality=85) # FUA to test this
+    decompress_image('path/to/compressed/image.jpg', 'path/to/decompressed/image.png') # FUA then to test this
