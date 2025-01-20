@@ -1,3 +1,5 @@
+# ----- REQUIRED IMPORTS -----
+
 import cv2
 import numpy as np
 from PIL import Image, ImageFilter
@@ -21,6 +23,8 @@ def process_book_cover(image_path):
         return (True, enhanced_image)
     except:
         return (False, None)
+
+# ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
     # FUA to test the below code 

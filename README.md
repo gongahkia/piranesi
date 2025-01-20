@@ -10,6 +10,10 @@
 
 > TODO add here
 
+## Architecture 
+
+> TODO add description and mermaid or C4 diagram here
+
 ## Disclaimer
 
 > TODO add here
