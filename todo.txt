@@ -1,3 +1,8 @@
-consider having users handle the cropping themselves if the OCR is not working
-see if there are any models out there that can do this for me
-see if scraping a website is a viable option to derive a catalog and if so then use a database that stores that data and consider using openlibrary or openbook api
+(A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
+(A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
+(A) work on finetuning the OCR of text from the bookcover, then using that book's title to automatically search for the actual book cover
+(A) if that does not work, perhaps allow users to just search for their existing book from the firebase database and the book cover will appear automaticallyI
+(A) an alternative for the manual uploading option would be that if the OCR and the OPEN-CV book cover / book spine extraction doesn't work, consider having users handle the cropping themselves when they upload the images
+(A) then figure out how to export the bookshelf to a HTML component that can work when hovered over and can be readily embedded into user's websites
+(A) see if there's anyway and if there's a necessary application for integrating trained ML or AI models into this project, be it for verification, classification or others
+(A) in the README.md, give credit to this website [max-bittker](https://maxbittker.github.io/) under an ## inspirations section, and also add further diagrams as required and under ## rationale, include "for users to easily create online bookshelves that more accurately reflected the imperfect but loved nature of their physical book collections"
