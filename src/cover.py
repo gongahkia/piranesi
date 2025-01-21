@@ -1,6 +1,10 @@
+# ----- REQUIRED IMPORTS -----
+
 import cv2
 import numpy as np
 import random
+
+# ----- HELPER FUNCTIONS -----
 
 def detect_and_color_edges(image_path):
     """
@@ -22,8 +26,11 @@ def detect_and_color_edges(image_path):
     result = cv2.addWeighted(img, 0.7, edge_mask, 0.3, 0)
     return result
 
+# ----- SAMPLE EXECUTION CODE -----
+
 if __name__ == "__main__":
-    image_path = "./../corpus/raw/1-cover.jpg"
-    result = detect_and_color_edges(image_path)
-    cv2.imwrite("colored_edges_with_green_rectangles.jpg", result)
-    print("Processed image saved successfully.")
+    INPUT_FILEPATH = "./../corpus/raw/6-cover.jpg"
+    OUTPUT_FILEPATH = "./../corpus/clean/6-cover.jpg"
+    result = detect_and_color_edges(INPUT_FILEPATH)
+    cv2.imwrite(OUTPUT_FILEPATH, result)
+    print("DONE")

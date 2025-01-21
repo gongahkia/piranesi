@@ -1,0 +1,3 @@
+consider having users handle the cropping themselves if the OCR is not working
+see if there are any models out there that can do this for me
+see if scraping a website is a viable option to derive a catalog and if so then use a database that stores that data and consider using openlibrary or openbook api
