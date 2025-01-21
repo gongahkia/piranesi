@@ -1,39 +1,29 @@
-# ----- REQUIRED IMPORTS -----
-
 import cv2
 import numpy as np
-from PIL import Image, ImageFilter
+import random
 
-
-def process_book_cover(image_path):
+def detect_and_color_edges(image_path):
     """
-    process the book cover image and return the enhanced image
+    detect edges in an image and color them
     """
-    try:
-        img = cv2.imread(image_path)
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)[1][2]  # reduce noise
-        edges = cv2.Canny(blurred, 100, 200)
-        contours, _ = cv2.findContours(
-            edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-        )  # contour detection
-        largest_contour = max(
-            contours, key=cv2.contourArea
-        )  # largest contour assumed to be book cover
-        mask = np.zeros(gray.shape, np.uint8)  # generate mask
-        cv2.drawContours(mask, [largest_contour], 0, 255, -1)
-        result = cv2.bitwise_and(img, img, mask=mask)  # apply mask
-        pil_image = Image.fromarray(cv2.cvtColor(result, cv2.COLOR_BGR2RGB))
-        enhanced_image = pil_image.filter(ImageFilter.EDGE_ENHANCE_MORE)
-        return (True, enhanced_image)
-    except Exception as e:
-        print(e)
-        return (False, None)
-
-
-# ----- SAMPLE EXECUTION CODE -----
+    img = cv2.imread(image_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 50, 150)
+    contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    edge_mask = np.zeros(img.shape, dtype=np.uint8)
+    rectangle_color = (0, 255, 0) 
+    for contour in contours:
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        cv2.drawContours(edge_mask, [contour], 0, color, 2)
+        epsilon = 0.04 * cv2.arcLength(contour, True)
+        approx = cv2.approxPolyDP(contour, epsilon, True)
+        if len(approx) == 4:
+            cv2.drawContours(edge_mask, [approx], 0, rectangle_color, 3)
+    result = cv2.addWeighted(img, 0.7, edge_mask, 0.3, 0)
+    return result
 
 if __name__ == "__main__":
-    # FUA to test the below code
-    processed_image = process_book_cover("./../corpus/raw/1-cover.jpg")[1]
-    processed_image.save("here.jpg")
+    image_path = "./../corpus/raw/1-cover.jpg"
+    result = detect_and_color_edges(image_path)
+    cv2.imwrite("colored_edges_with_green_rectangles.jpg", result)
+    print("Processed image saved successfully.")
