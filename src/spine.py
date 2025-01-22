@@ -1,8 +1,12 @@
+# ----- REQUIRED IMPORTS -----
+
 import cv2
 import numpy as np
 from PIL import Image
 import pytesseract
 import os
+
+# ----- HELPER FUNCTIONS -----
 
 def preprocess_image_for_ocr(image_path):
     """
@@ -56,6 +60,8 @@ def extraction_wrapper(image_path):
     else:
         print(f"Error: File not found at {image_path}")
         return None
+
+# ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
     image_path = "./../corpus/raw/1-spine.jpg"

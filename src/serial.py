@@ -7,7 +7,6 @@ from PIL import Image
 
 # ----- HELPER FUNCTIONS -----
 
-
 def compress_image(input_path, output_path, quality=85):
     """
     compress an image and save it to the specified output filepath
