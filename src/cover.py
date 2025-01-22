@@ -28,6 +28,24 @@ def detect_and_color_edges(image_path):
     return result
 
 
+def get_rectangle_coordinates(image_path):
+    """
+    extract pixel coordinates of rectangular shapes in the image
+    """
+    img = cv2.imread(image_path)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 50, 150)
+    contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    rectangles = []
+    for contour in contours:
+        epsilon = 0.04 * cv2.arcLength(contour, True)
+        approx = cv2.approxPolyDP(contour, epsilon, True)
+        if len(approx) == 4:
+            x, y, w, h = cv2.boundingRect(approx)
+            rectangles.append(((x, y), (x + w, y + h)))
+    return rectangles
+
+
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
@@ -36,3 +54,7 @@ if __name__ == "__main__":
     result = detect_and_color_edges(INPUT_FILEPATH)
     cv2.imwrite(OUTPUT_FILEPATH, result)
     print("DONE")
+    rectangles = get_rectangle_coordinates(INPUT_FILEPATH)
+    print("DONE")
+    for rect in rectangles:
+        print(f"top-left: {rect[0]}, bottom-right: {rect[1]}")
