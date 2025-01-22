@@ -46,15 +46,32 @@ def get_rectangle_coordinates(image_path):
     return rectangles
 
 
+def create_colored_overlay(image_path, coordinates, color=(0, 255, 0), alpha=0.3):
+    """
+    create a colored overlay on the image based on given coordinates
+    """
+    img = cv2.imread(image_path)
+    overlay = np.zeros(img.shape, dtype=np.uint8)
+    for coord in coordinates:
+        cv2.rectangle(overlay, coord[0], coord[1], color, -1)
+    result = cv2.addWeighted(img, 1, overlay, alpha, 0)
+    return result
+
+
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
     INPUT_FILEPATH = "./../corpus/raw/6-cover.jpg"
     OUTPUT_FILEPATH = "./../corpus/clean/6-cover.jpg"
     result = detect_and_color_edges(INPUT_FILEPATH)
-    cv2.imwrite(OUTPUT_FILEPATH, result)
+    cv2.imwrite(f"{OUTPUT_FILEPATH}_edges.png", result)
     print("DONE")
-    rectangles = get_rectangle_coordinates(INPUT_FILEPATH)
+    rectangles_array = get_rectangle_coordinates(INPUT_FILEPATH)
     print("DONE")
-    for rect in rectangles:
+    for rect in rectangles_array:
         print(f"top-left: {rect[0]}, bottom-right: {rect[1]}")
+    cv2.imwrite(
+        f"{OUTPUT_FILEPATH}_overlay.png",
+        create_colored_overlay(INPUT_FILEPATH, rectangles_array),
+    )
+    print("DONE")
