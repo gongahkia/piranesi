@@ -139,61 +139,6 @@ def morph_transform(image):
     return Image.fromarray(dilated)
 
 
-def deskew_image(image):
-    """
-    deskews the given image to correct any tilt or slant in the text
-    """
-    gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
-    _, thresh = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY_INV)
-    coords = np.column_stack(np.where(thresh > 0))
-    angle = cv2.minAreaRect(coords)[-1]
-    if angle < -45:
-        angle = -(90 + angle)
-    else:
-        angle = -angle
-    if abs(angle) < 1:
-        return image
-    (h, w) = image.size
-    center = (w // 2, h // 2)
-    M = cv2.getRotationMatrix2D(center, angle, 1.0)
-    deskewed_image = cv2.warpAffine(
-        np.array(image),
-        M,
-        (w, h),
-        flags=cv2.INTER_CUBIC,
-        borderMode=cv2.BORDER_REPLICATE,
-    )
-    return Image.fromarray(deskewed_image)
-
-
-def deskew_image_hough(image):
-    """
-    deskews the image by hough transformations
-    """
-    gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
-    edges = cv2.Canny(gray, 50, 150, apertureSize=3)
-    lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
-    if lines is not None:
-        angles = []
-        for rho, theta in lines[:, 0]:
-            angle = np.rad2deg(theta) - 90
-            angles.append(angle)
-        median_angle = np.median(angles)
-        (h, w) = image.size
-        center = (w // 2, h // 2)
-        M = cv2.getRotationMatrix2D(center, median_angle, 1.0)
-        deskewed_image = cv2.warpAffine(
-            np.array(image),
-            M,
-            (w, h),
-            flags=cv2.INTER_CUBIC,
-            borderMode=cv2.BORDER_REPLICATE,
-        )
-        return Image.fromarray(deskewed_image)
-    else:
-        return image
-
-
 def preprocess_image_for_ocr(image_path, output_path):
     """
     preprocess an image for ocr
@@ -203,7 +148,7 @@ def preprocess_image_for_ocr(image_path, output_path):
     pil_image = convert_to_grayscale(pil_image)
     pil_image = apply_adaptive_threshold(pil_image)
     pil_image = denoise_image(pil_image)
-    pil_image = morph_transform(pil_image)
+    # pil_image = morph_transform(pil_image)
     preprocessed_image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
     try:
         cv2.imwrite(output_path, preprocessed_image)
@@ -260,6 +205,6 @@ def extraction_wrapper(image_path, output_path):
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
-    IMAGE_PATH = "./../corpus/raw/1-spine.jpg"
-    OUTPUT_PATH = "./../corpus/clean/1-spine.jpg"
+    IMAGE_PATH = "./../corpus/raw/10-spine.jpg"
+    OUTPUT_PATH = "./../corpus/clean/10-spine.jpg"
     print(extraction_wrapper(IMAGE_PATH, OUTPUT_PATH))
