@@ -8,6 +8,7 @@ import os
 
 # ----- HELPER FUNCTIONS -----
 
+
 def preprocess_image_for_ocr(image_path):
     """
     preprocess an image for ocr
@@ -23,6 +24,7 @@ def preprocess_image_for_ocr(image_path):
     cv2.imwrite("/tmp/preprocessed_image.png", gray)
     return gray
 
+
 def extract_text_from_image(image_path):
     """
     extract text from an image using tesseract ocr
@@ -32,12 +34,13 @@ def extract_text_from_image(image_path):
         psm_modes = [3, 4, 6, 11, 12]
         extracted_texts = []
         for psm_mode in psm_modes:
-            custom_config = f'--oem 3 --psm {psm_mode} -l eng'
+            custom_config = f"--oem 3 --psm {psm_mode} -l eng"
             text = pytesseract.image_to_string(preprocessed_image, config=custom_config)
             extracted_texts.append(f"PSM {psm_mode}: {text.strip()}")
         return "\n\n".join(extracted_texts)
     except Exception as e:
         return f"Error during OCR: {str(e)}"
+
 
 def extraction_wrapper(image_path):
     if os.path.exists(image_path):
@@ -55,11 +58,12 @@ def extraction_wrapper(image_path):
             },
             "results": {
                 "extracted_text": extracted_text,
-            }
-        } 
+            },
+        }
     else:
         print(f"Error: File not found at {image_path}")
         return None
+
 
 # ----- SAMPLE EXECUTION CODE -----
 
