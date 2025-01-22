@@ -1,4 +1,6 @@
-(A) try and debug the broken edge detection or OCR being done on the bookcovers currently
+x (A) try and debug the broken edge detection 
+(A) consider putting the images through some preprocessing (see elefant internship repo) to see whether that helps with edge detection
+(A) try and debug the broken OCR as an alternative to the broken edge detection 
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
 (A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
 (A) work on finetuning the OCR of text from the bookcover, then using that book's title to automatically search for the actual book cover
