@@ -199,23 +199,15 @@ def preprocess_image_for_ocr(image_path, output_path):
     preprocess an image for ocr
     """
     image = cv2.imread(image_path)
-    preprocessed_image = cv2.cvtColor(
-        np.array(
-            morph_transform(
-                denoise_image(
-                    apply_adaptive_threshold(
-                        convert_to_grayscale(
-                            Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-                        )
-                    )
-                )
-            )
-        ),
-        cv2.COLOR_RGB2BGR,
-    )
+    pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    pil_image = convert_to_grayscale(pil_image)
+    pil_image = apply_adaptive_threshold(pil_image)
+    pil_image = denoise_image(pil_image)
+    pil_image = morph_transform(pil_image)
+    preprocessed_image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
     try:
         cv2.imwrite(output_path, preprocessed_image)
-        print(f"Preprocessed image written to filepath {output_path}")
+        print(f"Preprocessed image written to {output_path}")
     except Exception as e:
         print(f"Error during writing image to filepath {output_path}: {str(e)}")
     finally:
