@@ -58,19 +58,21 @@ def create_colored_overlay(image_path, coordinates, color=(0, 255, 0), alpha=0.3
     return result
 
 
-def extract_bounded_areas(image_path, coordinates):
+def extract_bounded_areas(image_path, output_filepath, coordinates):
     """
     extract the content within the bounded areas defined by the coordinates
     """
-    img = cv2.imread(image_path)
-    extracted_images = []
-    for i, coord in enumerate(coordinates):
-        x1, y1 = coord[0]
-        x2, y2 = coord[1]
+    try:
+        img = cv2.imread(image_path)
+        extracted_images = []
+        x1, y1 = coordinates[-1][0]
+        x2, y2 = coordinates[-1][1]
         roi = img[y1:y2, x1:x2]
-        extracted_images.append(roi)
-        cv2.imwrite(f"extracted_area_{i}.jpg", roi)
-    return extracted_images
+        cv2.imwrite(f"{output_filepath}_extracted.png", roi)
+        return True
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return False
 
 
 # ----- SAMPLE EXECUTION CODE -----
@@ -90,5 +92,7 @@ if __name__ == "__main__":
         create_colored_overlay(INPUT_FILEPATH, rectangles_array),
     )
     print("DONE")
-    extracted_areas = extract_bounded_areas(INPUT_FILEPATH, rectangles_array)
+    extracted_areas = extract_bounded_areas(
+        INPUT_FILEPATH, OUTPUT_FILEPATH, rectangles_array
+    )
     print("DONEE")
