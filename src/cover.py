@@ -58,41 +58,68 @@ def create_colored_overlay(image_path, coordinates, color=(0, 255, 0), alpha=0.3
     return result
 
 
-def extract_bounded_areas(image_path, output_filepath, coordinates):
+def extract_bounded_area(image_path, output_filepath, coordinates):
     """
-    extract the content within the bounded areas defined by the coordinates
+    extract and save only the largest bounded area defined by the coordinates
     """
     try:
         img = cv2.imread(image_path)
-        extracted_images = []
-        x1, y1 = coordinates[-1][0]
-        x2, y2 = coordinates[-1][1]
-        roi = img[y1:y2, x1:x2]
-        cv2.imwrite(f"{output_filepath}_extracted.png", roi)
+        largest_roi = None
+        largest_area = 0
+        for coord in coordinates:
+            x1, y1 = coord[0]
+            x2, y2 = coord[1]
+            roi = img[y1:y2, x1:x2]
+            area = (x2 - x1) * (y2 - y1)
+            if area > largest_area:
+                largest_roi = roi
+                largest_area = area
+        if largest_roi is not None:
+            cv2.imwrite(f"{output_filepath}_largest_extracted.jpg", largest_roi)
+            return True
+        else:
+            print("No valid ROI found.")
+            return False
+    except Exception as e:
+        print(f"Error during extraction: {str(e)}")
+        return False
+
+
+def cover_wrapper(input_filepath, output_filepath):
+    """
+    wrapper function for cover extraction
+    """
+    if input_filepath is None or output_filepath is None:
+        print(
+            "Error: Wrong number of image filepaths provided. 2 arguments are required."
+        )
+        return False
+    try:
+        result = detect_and_color_edges(input_filepath)
+        cv2.imwrite(f"{output_filepath}_edges.png", result)
+        print("1/4: Detected edges and wrote image.")
+        rectangles_array = get_rectangle_coordinates(input_filepath)
+        print("2/4: Extracted rectangles and wrote image.")
+        for rect in rectangles_array:
+            print(f"top-left: {rect[0]}, bottom-right: {rect[1]}")
+        cv2.imwrite(
+            f"{OUTPUT_FILEPATH}_overlay.png",
+            create_colored_overlay(INPUT_FILEPATH, rectangles_array),
+        )
+        print("3/4: Created overlay and wrote image.")
+        extracted_areas = extract_bounded_area(
+            INPUT_FILEPATH, OUTPUT_FILEPATH, rectangles_array
+        )
+        print("4/4: Extracted areas and wrote image.")
         return True
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Error during extraction: {str(e)}")
         return False
 
 
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
-    INPUT_FILEPATH = "./../corpus/raw/6-cover.jpg"
-    OUTPUT_FILEPATH = "./../corpus/clean/6-cover.jpg"
-    result = detect_and_color_edges(INPUT_FILEPATH)
-    cv2.imwrite(f"{OUTPUT_FILEPATH}_edges.png", result)
-    print("DONE")
-    rectangles_array = get_rectangle_coordinates(INPUT_FILEPATH)
-    print("DONE")
-    for rect in rectangles_array:
-        print(f"top-left: {rect[0]}, bottom-right: {rect[1]}")
-    cv2.imwrite(
-        f"{OUTPUT_FILEPATH}_overlay.png",
-        create_colored_overlay(INPUT_FILEPATH, rectangles_array),
-    )
-    print("DONE")
-    extracted_areas = extract_bounded_areas(
-        INPUT_FILEPATH, OUTPUT_FILEPATH, rectangles_array
-    )
-    print("DONEE")
+    INPUT_FILEPATH = "./../corpus/raw/1-cover.jpg"
+    OUTPUT_FILEPATH = "./../corpus/clean/1-cover.jpg"
+    cover_wrapper(INPUT_FILEPATH, OUTPUT_FILEPATH)
