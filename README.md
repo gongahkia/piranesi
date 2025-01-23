@@ -2,6 +2,8 @@
 
 # `Piranesi` 🏛️
 
+Physical book collections are awesome. Virtual libraries should be too.
+
 ## Rationale
 
 > TODO add here
@@ -23,3 +25,11 @@
 The name `Piranesi` is in reference to the [18th century](https://en.wikipedia.org/wiki/1720) Italian archaeologist and architect [Giovanni Battista Piranesi](https://en.wikipedia.org/wiki/Giovanni_Battista_Piranesi), most known for his collection of 16 etchings, [Carceri d'invenzione](https://en.wikipedia.org/wiki/Carceri_d%27invenzione), often translated as [Imaginary Prisons](https://artmuseum.princeton.edu/object-package/giovanni-battista-piranesi-imaginary-prisons/3640).  
 
 ![](./asset/logo/prison.jpg)
+
+## Inspiration
+
+> TODO add here
+
+Visually, `Piranesi` takes much reference from ...
+
+Conceptually, `Piranesi` was developed by ... 
