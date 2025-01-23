@@ -4,7 +4,7 @@ x (A) add a function that determines if a jpeg is empty and if so then ignores i
 x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 
 (A) debug issues arising from my vercel deployment of piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent
-(A) why is it that the search query works (reflecting the API itself is working) but adding books is not?
+(A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
 
 (A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
 (A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
