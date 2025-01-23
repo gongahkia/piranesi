@@ -3,8 +3,10 @@ x (A) consider putting the images through some preprocessing (see elefant intern
 x (A) add a function that determines if a jpeg is empty and if so then ignores it, then integrate this function into my retrieve.py existing wrapper script
 x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 
-(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
+(A) debug issues arising from my vercel deployment of piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent
+(A) why is it that the search query works (reflecting the API itself is working) but adding books is not?
 
+(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
 (A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
 (A) try and debug the broken OCR as an alternative to the broken edge detection 
