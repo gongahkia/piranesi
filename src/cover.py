@@ -1,3 +1,9 @@
+"""
+!NOTE
+
+relies on opencv to extract pixel coordinates of rectangular shapes from user images 
+"""
+
 # ----- REQUIRED IMPORTS -----
 
 import cv2

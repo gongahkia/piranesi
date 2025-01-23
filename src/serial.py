@@ -1,3 +1,9 @@
+"""
+!NOTE
+
+various compression and serialisation functions
+"""
+
 # ----- REQUIRED IMPORTS -----
 
 import io

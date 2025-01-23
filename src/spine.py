@@ -1,3 +1,9 @@
+"""
+!NOTE
+
+relies on opencv to perform preprocessing on user images and pytesseract to perform OCR on those images
+"""
+
 # ----- REQUIRED IMPORTS -----
 
 import cv2

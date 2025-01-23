@@ -2,8 +2,6 @@
 !NOTE
 
 relies on openlibrary RESTAPI to obtain book details
-
-docs are https://openlibrary.org/dev/docs/restful_api
 """
 
 # ----- REQUIRED IMPORTS -----
