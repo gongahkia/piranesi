@@ -1,3 +1,4 @@
+[![](https://img.shields.io/badge/naive_piranesi_1.0.0-up-green)](https://naive-piranesi.vercel.app/)
 [![](https://img.shields.io/badge/piranesi_1.0.0-build-orange)](https://github.com/gongahkia/piranesi/releases/tag/1.0.0)
 
 # `Piranesi` 🏛️
