@@ -5,6 +5,11 @@
 
 The world's online library.
 
+## Screenshot
+
+![](./../../asset/reference/piranesi_light_v1.png)
+![](./../../asset/reference/piranesi_dark_v1.png)
+
 ## How to build?
 
 To locally deploy, first run.
@@ -16,8 +21,3 @@ $ npm run dev
 ```
 
 Then visit [`http://localhost:3000`](http://localhost:3000).
-
-## Screenshot
-
-![](./../../asset/reference/piranesi_light_v1.png)
-![](./../../asset/reference/piranesi_dark_v1.png)
