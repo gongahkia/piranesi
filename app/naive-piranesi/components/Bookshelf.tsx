@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image" 
 import { useQuery } from "@tanstack/react-query"
 
 interface Book {
@@ -50,7 +51,7 @@ export default function Bookshelf() {
       )}
       {hoveredBook && (
         <div className="mt-4">
-          <img
+          <Image
             src={hoveredBook.cover || "/placeholder.svg"}
             alt={hoveredBook.title}
             className="w-32 h-48 object-cover"
