@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image'
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 
@@ -44,7 +45,7 @@ export default function Bookshelf() {
       <div className="flex overflow-x-auto pb-4">{books.map(renderBookSpine)}</div>
       {hoveredBook && (
         <div className="mt-4">
-          <img
+          <Image
             src={hoveredBook.cover || "/placeholder.svg"}
             alt={hoveredBook.title}
             className="w-32 h-48 object-cover"
