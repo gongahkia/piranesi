@@ -1,7 +1,6 @@
 # Naive [`Piranesi`](https://github.com/gongahkia/piranesi) web app
 
-> [!TIP]  
-> Now live at [`https://piranesi-front.vercel.app/`](https://piranesi-front.vercel.app/).
+Now live at [`https://naive-piranesi.vercel.app/`](https://naive-piranesi.vercel.app/).
 
 ## How to build?
 
