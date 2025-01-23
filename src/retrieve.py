@@ -98,14 +98,17 @@ def search_books_by_id_wrapper(book_id, filepath_prefix="./../corpus/log/"):
         return False
 
 
-def search_book_cover_wrapper(query, filepath_prefix="./../corpus/log/"):
+def search_book_cover_wrapper(query, book_limit=5, filepath_prefix="./../corpus/log/"):
     """
     wrapper function for search_books_by_query and search_book_cover_by_isbn
     """
     modified_query = query.lower().replace(" ", "+")
     search_results = search_books_by_query(modified_query)
+    cover_count = 0
     if search_results[0]:
         for book in search_results[1]["docs"]:
+            if cover_count >= book_limit:
+                break
             if book["isbn"] and len(book["isbn"]) > 0:
                 book_isbn = book["isbn"][0]
                 search_results = search_book_cover_by_isbn(
@@ -114,6 +117,7 @@ def search_book_cover_wrapper(query, filepath_prefix="./../corpus/log/"):
             else:
                 print("Error: No ISBN found for this book.")
                 return False
+            cover_count += 1
         return True
     else:
         return False
