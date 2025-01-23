@@ -1,7 +1,7 @@
 x (A) try and debug the broken edge detection 
 x (A) consider putting the images through some preprocessing (see elefant internship repo) to see whether that helps with edge detection
 
-(A) add more details that I want to extract, such as author name, book cover, authorial date etc
+(A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
 (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 (A) try and debug the broken OCR as an alternative to the broken edge detection 
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
