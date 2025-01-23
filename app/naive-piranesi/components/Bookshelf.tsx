@@ -41,7 +41,13 @@ export default function Bookshelf() {
 
   return (
     <div className="mt-8">
-      <div className="flex overflow-x-auto pb-4">{books.map(renderBookSpine)}</div>
+      {books.length === 0 ? (
+        <div className="text-center p-4 bg-gray-100 border border-gray-300">
+          Your bookshelf is empty. Use the search bar above to add some books!
+        </div>
+      ) : (
+        <div className="flex overflow-x-auto pb-4">{books.map(renderBookSpine)}</div>
+      )}
       {hoveredBook && (
         <div className="mt-4">
           <img

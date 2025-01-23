@@ -1,19 +1,6 @@
 import { NextResponse } from "next/server"
 
-const books = [
-  {
-    id: "1",
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    cover: "https://covers.openlibrary.org/b/id/8424649-M.jpg",
-  },
-  {
-    id: "2",
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    cover: "https://covers.openlibrary.org/b/id/8314135-M.jpg",
-  },
-]
+const books: any[] = []
 
 export async function GET() {
   return NextResponse.json(books)

@@ -2,7 +2,7 @@ myenv
 env
 venv
 src/.jpg
- dependencies
+dependencies
 node_modules
 .pnp
 .pnp.*

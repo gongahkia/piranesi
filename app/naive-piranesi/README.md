@@ -1,12 +1,9 @@
 # Naive [`Piranesi`](https://github.com/gongahkia/piranesi) web app
 
+> [!TIP]  
+> Now live at [`https://piranesi-front.vercel.app/`](https://piranesi-front.vercel.app/).
+
 ## How to build?
-
-Don't.  
-  
-The site is live at [`https://piranesi-front.vercel.app/`](https://piranesi-front.vercel.app/).
-
-## I still want to build it myself
 
 To locally deploy, first run.
 
@@ -17,3 +14,8 @@ $ npm run dev
 ```
 
 Then visit [`http://localhost:3000`](http://localhost:3000).
+
+## Screenshot
+
+![](./../../asset/reference/piranesi_light_v1.png)
+![](./../../asset/reference/piranesi_dark_v1.png)
