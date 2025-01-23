@@ -9,6 +9,10 @@ Physical book collections are awesome. Virtual libraries should be too.
 
 > TODO add here
 
+## Usage
+
+Explore the [Piranesi web app universe 🚀](./app/).
+
 ## Screenshot
 
 > TODO add here
