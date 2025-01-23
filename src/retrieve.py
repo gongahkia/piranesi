@@ -6,6 +6,7 @@ relies on openlibrary RESTAPI to obtain book details
 
 # ----- REQUIRED IMPORTS -----
 
+import os
 import json
 import requests
 
@@ -55,6 +56,22 @@ def search_books_by_id(book_id):
         return (False, None)
 
 
+def search_book_cover_by_isbn(isbn, filepath, size="L"):
+    """
+    get book cover from the openlibrary RESTAPI, where size can be S, M, L
+    """
+    try:
+        book_url = f"https://covers.openlibrary.org/b/isbn/{isbn}-{size}.jpg"
+        response = requests.get(book_url, stream=True)
+        response.raise_for_status()
+        with open(filepath, "wb") as file:
+            for chunk in response.iter_content(chunk_size=8192):
+                file.write(chunk)
+        return (True, f"Image saved successfully to {filepath}")
+    except Exception as e:
+        return (False, f"Error downloading image: {str(e)}")
+
+
 def search_books_by_query_wrapper(query, filepath_prefix="./../corpus/log/"):
     """
     wrapper function for search_books_by_query
@@ -81,7 +98,29 @@ def search_books_by_id_wrapper(book_id, filepath_prefix="./../corpus/log/"):
         return False
 
 
+def search_book_cover_wrapper(query, filepath_prefix="./../corpus/log/"):
+    """
+    wrapper function for search_books_by_query and search_book_cover_by_isbn
+    """
+    modified_query = query.lower().replace(" ", "+")
+    search_results = search_books_by_query(modified_query)
+    if search_results[0]:
+        for book in search_results[1]["docs"]:
+            if book["isbn"] and len(book["isbn"]) > 0:
+                book_isbn = book["isbn"][0]
+                search_results = search_book_cover_by_isbn(
+                    book_isbn, f"{filepath_prefix}{modified_query}{book_isbn}.jpg"
+                )
+            else:
+                print("Error: No ISBN found for this book.")
+                return False
+        return True
+    else:
+        return False
+
+
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
-    search_books_by_query_wrapper("What i talk about when I talk about running")
+    # search_books_by_query_wrapper("What i talk about when I talk about running")
+    search_book_cover_wrapper("What i talk about when I talk about running")
