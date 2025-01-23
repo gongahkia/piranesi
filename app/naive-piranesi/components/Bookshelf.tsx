@@ -54,7 +54,9 @@ export default function Bookshelf() {
           <Image
             src={hoveredBook.cover || "/placeholder.svg"}
             alt={hoveredBook.title}
-            className="w-32 h-48 object-cover"
+            width={128} 
+            height={192}
+            className="object-cover"
           />
           <p className="mt-2 font-bold">{hoveredBook.title}</p>
           <p>{hoveredBook.author}</p>
