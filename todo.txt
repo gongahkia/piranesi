@@ -2,20 +2,18 @@ x (A) try and debug the broken edge detection
 x (A) consider putting the images through some preprocessing (see elefant internship repo) to see whether that helps with edge detection
 x (A) add a function that determines if a jpeg is empty and if so then ignores it, then integrate this function into my retrieve.py existing wrapper script
 x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
+x (A) debug issues arising from my vercel deployment of naive-piranesi, where i'm unable to see the book covers of the books I have in my bookshelf
+x (A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
 
-(A) debug issues arising from my vercel deployment of naive-piranesi, where i'm unable to see the book covers of the books I have in my bookshelf
+(A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
+(A) make the README in ./app have an ascii cat holding both naive and smart-piranesi, and the descriptions will call naive-piranesi the universal library while smart-piranesi has user-specific libraries
 
 (A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
-(A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
-(A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
-(A) try and debug the broken OCR as an alternative to the broken edge detection 
-(A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
-(A) change the frontend design once it looks better
+
 (A) write more frontend code to animate things and make it look cleaner
 (A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
 (A) connect the backend code to mongodb or some remote database and add that within my app/piranesi/apps/api/books/route.ts to call that database
-
-(A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent
+(A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent and consider integrating vercel postgresql instead
 (A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
@@ -31,6 +29,10 @@ x (A) for documentation sake, place comments for each file within a python docst
 (A) then figure out how to export the bookshelf to a HTML component that can work when hovered over and can be readily embedded into user's websites
 (A) see if there's anyway and if there's a necessary application for integrating trained ML or AI models into this project, be it for verification, classification or others
 (A) in the README.md, give credit to this website [max-bittker](https://maxbittker.github.io/) under an ## inspirations section, and also add further diagrams as required and under ## rationale, include "for users to easily create online bookshelves that more accurately reflected the imperfect but loved nature of their physical book collections" and the screenshots of telegram chat from bun about the idea of a physical book collection, see under ./asset/chat.png
+
+(A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
+(A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
+(A) try and debug the broken OCR as an alternative to the broken edge detection 
 
 (A) consider expanding piranesi to cover audio and music and use a vinyl representation and vinyl sleeves
 (A) consider making films representations with posters on a brick wall or a blockbuster rack
