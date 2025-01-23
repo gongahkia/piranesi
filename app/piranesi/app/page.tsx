@@ -8,7 +8,7 @@ export default function Home() {
         <pre className="inline-block">
           {`
 +------------------------+
-|    ASCII Bookshelf     |
+|        Piranesi        |
 +------------------------+
 `}
         </pre>

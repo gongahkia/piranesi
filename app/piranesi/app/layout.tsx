@@ -5,8 +5,8 @@ import Providers from "./providers"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "ASCII Bookshelf",
-  description: "A bookshelf with ASCII character book spines",
+  title: "~ PIRANESI 🏛️ ~",
+  description: "ASCII bookshelf for the future",
 }
 
 export default function RootLayout({
