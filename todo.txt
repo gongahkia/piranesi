@@ -3,8 +3,7 @@ x (A) consider putting the images through some preprocessing (see elefant intern
 x (A) add a function that determines if a jpeg is empty and if so then ignores it, then integrate this function into my retrieve.py existing wrapper script
 x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 
-(A) debug issues arising from my vercel deployment of piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent
-(A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
+(A) debug issues arising from my vercel deployment of naive-piranesi, where i'm unable to see the book covers of the books I have in my bookshelf
 
 (A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
 (A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
@@ -15,6 +14,9 @@ x (A) for documentation sake, place comments for each file within a python docst
 (A) write more frontend code to animate things and make it look cleaner
 (A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
 (A) connect the backend code to mongodb or some remote database and add that within my app/piranesi/apps/api/books/route.ts to call that database
+
+(A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent
+(A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
 (A) store scraped data and other relevant things in mongodb, then learn how to spin things up on a local instance, schedule everything with anacron or github scheduled actions, see huey's lacuna case website that has scheduled scraping similar to https://github.com/hueyy/lacuna-db
