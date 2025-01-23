@@ -1,14 +1,20 @@
 x (A) try and debug the broken edge detection 
 x (A) consider putting the images through some preprocessing (see elefant internship repo) to see whether that helps with edge detection
 x (A) add a function that determines if a jpeg is empty and if so then ignores it, then integrate this function into my retrieve.py existing wrapper script
+x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 
-(A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
-(A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
-(A) try and debug the broken OCR as an alternative to the broken edge detection 
-(A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
-(A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
 (A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
 
+(A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
+(A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
+(A) try and debug the broken OCR as an alternative to the broken edge detection 
+(A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
+(A) change the frontend design once it looks better
+(A) write more frontend code to animate things and make it look cleaner
+(A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
+(A) connect the backend code to mongodb or some remote database and add that within my app/piranesi/apps/api/books/route.ts to call that database
+
+(A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
 (A) store scraped data and other relevant things in mongodb, then learn how to spin things up on a local instance, schedule everything with anacron or github scheduled actions, see huey's lacuna case website that has scheduled scraping similar to https://github.com/hueyy/lacuna-db
 (A) implement the backend logic with the frontend in nextjs react 
 (A) work out how to deploy the entire nonsense bullshit on vercel
