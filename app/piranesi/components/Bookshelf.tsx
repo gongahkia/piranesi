@@ -41,7 +41,7 @@ export default function Bookshelf() {
 
   return (
     <div className="mt-8">
-      <div className="flex">{books.map(renderBookSpine)}</div>
+      <div className="flex overflow-x-auto pb-4">{books.map(renderBookSpine)}</div>
       {hoveredBook && (
         <div className="mt-4">
           <img
