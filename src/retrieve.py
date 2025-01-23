@@ -122,9 +122,26 @@ def search_book_cover_wrapper(query, book_limit=5, filepath_prefix="./../corpus/
                 print("Error: No ISBN found for this book.")
                 return False
             cover_count += 1
+        delete_large_images(filepath_prefix)
         return True
     else:
         return False
+
+
+def delete_large_images(folder_path, threshold_size_bytes=10000):
+    """
+    delete large images that exceed a specified filesize from a folder
+    """
+    deleted_count = 0
+    for filename in os.listdir(folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp")):
+            file_path = os.path.join(folder_path, filename)
+            file_size = os.path.getsize(file_path)
+            if file_size < threshold_size_bytes:
+                os.remove(file_path)
+                print(f"Success: Deleted {filename} (Size: {file_size} bytes)")
+                deleted_count += 1
+    print(f"Success: Total images deleted: {deleted_count}")
 
 
 # ----- SAMPLE EXECUTION CODE -----
