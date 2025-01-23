@@ -1,36 +1,36 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
+import { MongoClient, ObjectId } from "mongodb";
 
-// FUA
-    // placeholder mock database for now
-    // in reality connect this to mongodb walahi later
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+const dbName = "bookstore";
+const collectionName = "books";
 
-const books = [
-  {
-    id: "1",
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    cover: "https://covers.openlibrary.org/b/id/8424649-M.jpg",
-  },
-  {
-    id: "2",
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    cover: "https://covers.openlibrary.org/b/id/8314135-M.jpg",
-  },
-]
+async function connectToDatabase() {
+  try {
+    await client.connect();
+    console.log("Connected to MongoDB");
+    return client.db(dbName).collection(collectionName);
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error);
+    throw error;
+  }
+}
 
 export async function GET() {
-  return NextResponse.json(books)
+  const collection = await connectToDatabase();
+  const books = await collection.find({}).toArray();
+  return NextResponse.json(books);
 }
 
 export async function POST(request: Request) {
-  const book = await request.json()
+  const collection = await connectToDatabase();
+  const book = await request.json();
   const newBook = {
-    id: Date.now().toString(),
     title: book.title,
     author: book.author_name?.[0] || "Unknown",
     cover: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : "/placeholder.svg",
-  }
-  books.push(newBook)
-  return NextResponse.json(newBook)
+  };
+  const result = await collection.insertOne(newBook);
+  return NextResponse.json({ ...newBook, _id: result.insertedId });
 }
