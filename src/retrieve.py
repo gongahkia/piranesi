@@ -2,13 +2,17 @@
 !NOTE
 
 relies on openlibrary RESTAPI to obtain book details
+
+docs are https://openlibrary.org/dev/docs/restful_api
 """
 
 # ----- REQUIRED IMPORTS -----
 
 import os
+import cv2
 import json
 import requests
+import numpy as np
 
 # ----- HELPER FUNCTIONS -----
 
@@ -118,13 +122,48 @@ def search_book_cover_wrapper(query, book_limit=5, filepath_prefix="./../corpus/
                 print("Error: No ISBN found for this book.")
                 return False
             cover_count += 1
+        delete_empty_images(filepath_prefix)
         return True
     else:
         return False
+
+
+def is_empty(image_path):
+    """
+    check if an image is empty
+    """
+    img = cv2.imread(image_path)
+    if img is None:
+        return True
+    if img.size == 0:
+        return True
+    if np.all(img == 0) or np.all(img == 255):
+        return True
+    entropy = cv2.calcHist([img], [0], None, [256], [0, 256])
+    entropy = entropy[entropy != 0]
+    entropy = -np.sum(entropy * np.log2(entropy))
+    if entropy < 0.05:
+        return True
+    return False
+
+
+def delete_empty_images(folder_path):
+    """
+    scan a folder for images, check if they're empty, and delete empty ones
+    """
+    deleted_count = 0
+    for filename in os.listdir(folder_path):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp")):
+            image_path = os.path.join(folder_path, filename)
+            if is_empty(image_path):
+                os.remove(image_path)
+                print(f"Success: Deleted empty image {filename}")
+                deleted_count += 1
+    print(f"Success: Total empty images deleted {deleted_count}")
 
 
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
     # search_books_by_query_wrapper("What i talk about when I talk about running")
-    search_book_cover_wrapper("What i talk about when I talk about running")
+    search_book_cover_wrapper("What i talk about when I talk about running", 3)
