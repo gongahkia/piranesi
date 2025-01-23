@@ -4,35 +4,35 @@ x (A) add a function that determines if a jpeg is empty and if so then ignores i
 x (A) for documentation sake, place comments for each file within a python docstring """ """ at the top of all python source files
 x (A) debug issues arising from my vercel deployment of naive-piranesi, where i'm unable to see the book covers of the books I have in my bookshelf
 x (A) if this API does not work, then consider scraping from scratch and saving it to an online database like firebase for my easy querying
+x (A) make the README in ./app have an ascii cat holding both naive and smart-piranesi, and the descriptions will call naive-piranesi the universal library while smart-piranesi has user-specific libraries
+x (A) implement the backend logic with the frontend in nextjs react 
+x (A) work out how to deploy the entire nonsense bullshit on vercel
 
-(A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
-(A) make the README in ./app have an ascii cat holding both naive and smart-piranesi, and the descriptions will call naive-piranesi the universal library while smart-piranesi has user-specific libraries
-
-(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
-
-(A) write more frontend code to animate things and make it look cleaner
-(A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
-(A) connect the backend code to mongodb or some remote database and add that within my app/piranesi/apps/api/books/route.ts to call that database
-(A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent and consider integrating vercel postgresql instead
-(A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
+(A) focus on developing piranesi as a CLI software based tool to create HTML embeddings first and foremost
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
 (A) store scraped data and other relevant things in mongodb, then learn how to spin things up on a local instance, schedule everything with anacron or github scheduled actions, see huey's lacuna case website that has scheduled scraping similar to https://github.com/hueyy/lacuna-db
-(A) implement the backend logic with the frontend in nextjs react 
-(A) work out how to deploy the entire nonsense bullshit on vercel
-(A) add user authentication since I want people to be able to log in, create profiles and everything
-(A) enter webapp heaven and deploy piranesi as a full-stack webapp with complete functionality to allow users to visit each other's libraries, similar to animal crossing
-(A) allow leaving of comments on people's libraries
 (A) work on finetuning the OCR of text from the bookcover, then using that book's title to automatically search for the actual book cover
 (A) if that does not work, perhaps allow users to just search for their existing book from the firebase database and the book cover will appear automaticallyI
 (A) an alternative for the manual uploading option would be that if the OCR and the OPEN-CV book cover / book spine extraction doesn't work, consider having users handle the cropping themselves when they upload the images
 (A) then figure out how to export the bookshelf to a HTML component that can work when hovered over and can be readily embedded into user's websites
 (A) see if there's anyway and if there's a necessary application for integrating trained ML or AI models into this project, be it for verification, classification or others
-(A) in the README.md, give credit to this website [max-bittker](https://maxbittker.github.io/) under an ## inspirations section, and also add further diagrams as required and under ## rationale, include "for users to easily create online bookshelves that more accurately reflected the imperfect but loved nature of their physical book collections" and the screenshots of telegram chat from bun about the idea of a physical book collection, see under ./asset/chat.png
-
 (A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
 (A) try and debug the broken OCR as an alternative to the broken edge detection 
+
+(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
+(A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
+
+(A) write more frontend code to animate things and make it look cleaner
+(A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent and consider integrating vercel postgresql instead
+(A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
+(A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
+(A) connect the backend code to mongodb or some remote database and add that within my app/piranesi/apps/api/books/route.ts to call that database
+(A) add user authentication since I want people to be able to log in, create profiles and everything
+(A) enter webapp heaven and deploy piranesi as a full-stack webapp with complete functionality to allow users to visit each other's libraries, similar to animal crossing
+(A) allow leaving of comments on people's libraries
+(A) in the README.md, give credit to this website [max-bittker](https://maxbittker.github.io/) under an ## inspirations section, and also add further diagrams as required and under ## rationale, include "for users to easily create online bookshelves that more accurately reflected the imperfect but loved nature of their physical book collections" and the screenshots of telegram chat from bun about the idea of a physical book collection, see under ./asset/chat.png
 
 (A) consider expanding piranesi to cover audio and music and use a vinyl representation and vinyl sleeves
 (A) consider making films representations with posters on a brick wall or a blockbuster rack

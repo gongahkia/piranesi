@@ -1,6 +1,9 @@
-# Naive [`Piranesi`](https://github.com/gongahkia/piranesi) web app
+# Naive [`Piranesi`](https://github.com/gongahkia/piranesi) web app 🪅🏛️
 
-Now live at [`https://naive-piranesi.vercel.app/`](https://naive-piranesi.vercel.app/).
+> [!IMPORTANT]  
+> Now live at [`https://naive-piranesi.vercel.app/`](https://naive-piranesi.vercel.app/).
+
+The world's online library.
 
 ## How to build?
 
