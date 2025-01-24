@@ -1,3 +1,9 @@
+"""
+!NOTE
+
+allows users to manually crop an image and have it saved to a default filepath
+"""
+
 # ----- REQUIRED IMPORTS -----
 
 import tkinter as tk
@@ -95,6 +101,7 @@ class ImageCropper:
 # ----- SAMPLE EXECUTION CODE -----
 
 # FUA add code to automate the saving image process so it does not need to prompt users on which file directory to save the image to
+# FUA after debugging actual method flow, add a wrapper function so creation and destruction of the class can be done easily
 
 if __name__ == "__main__":
     root = tk.Tk()
