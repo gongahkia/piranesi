@@ -9,6 +9,7 @@ x (A) implement the backend logic with the frontend in nextjs react
 x (A) work out how to deploy the entire nonsense bullshit on vercel
 
 (A) allow users to have a usable frontend to crop images instead for now, then move on with the project to implement animal crossing style comments first
+(A) edit the ./src/crop.py to have a usable frontend first
 (A) focus on developing piranesi as a CLI software based tool to create HTML embeddings first and foremost
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
