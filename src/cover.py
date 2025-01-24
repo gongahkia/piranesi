@@ -126,6 +126,6 @@ def cover_wrapper(input_filepath, output_filepath):
 # ----- SAMPLE EXECUTION CODE -----
 
 if __name__ == "__main__":
-    INPUT_FILEPATH = "./../corpus/raw/6-cover.jpg"
-    OUTPUT_FILEPATH = "./../corpus/clean/6-cover.jpg"
+    INPUT_FILEPATH = "./../corpus/raw/6-spine.jpg"
+    OUTPUT_FILEPATH = "./../corpus/clean/6-spine.jpg"
     cover_wrapper(INPUT_FILEPATH, OUTPUT_FILEPATH)

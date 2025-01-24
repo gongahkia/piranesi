@@ -8,10 +8,12 @@ x (A) make the README in ./app have an ascii cat holding both naive and smart-pi
 x (A) implement the backend logic with the frontend in nextjs react 
 x (A) work out how to deploy the entire nonsense bullshit on vercel
 
+(A) allow users to have a usable frontend to crop images instead for now, then move on with the project to implement animal crossing style comments first
 (A) focus on developing piranesi as a CLI software based tool to create HTML embeddings first and foremost
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
 (A) store scraped data and other relevant things in mongodb, then learn how to spin things up on a local instance, schedule everything with anacron or github scheduled actions, see huey's lacuna case website that has scheduled scraping similar to https://github.com/hueyy/lacuna-db
+(A) work out image extraction of images and enforce that an image must be extracted correctly with good light settings
 (A) work on finetuning the OCR of text from the bookcover, then using that book's title to automatically search for the actual book cover
 (A) if that does not work, perhaps allow users to just search for their existing book from the firebase database and the book cover will appear automaticallyI
 (A) an alternative for the manual uploading option would be that if the OCR and the OPEN-CV book cover / book spine extraction doesn't work, consider having users handle the cropping themselves when they upload the images
@@ -21,10 +23,9 @@ x (A) work out how to deploy the entire nonsense bullshit on vercel
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
 (A) try and debug the broken OCR as an alternative to the broken edge detection 
 
-(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it 
+(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it and include animated ascii to write more spcecific frontend code to animate things and make it look cleaner
 (A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
 
-(A) write more frontend code to animate things and make it look cleaner
 (A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent and consider integrating vercel postgresql instead
 (A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
 (A) try and connect the backend of this application and write more relevant backend code for the nextjs backend
