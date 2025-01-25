@@ -16,7 +16,6 @@ x (A) work out how to deploy the entire nonsense bullshit on vercel
 (A) get the bookshelf itself to be visualised in as well, consider stealing images from pintrest or elsewhere
 (A) also let users visualise a haphazard stack of books if they want
 (A) move on with the rest of the project to allow users to implement animal crossing style comments first
-
 (A) consider linking the openlibrary API functionality to the existing program where users after adding images of their covers and spines, can then specify which book has been added if the OCR isn't working by searching for their specific book through the openlibraryAPI to see if there's any added value
 (A) check if there is any other added value that openlibrary API can provide such as BOOK BLURBS or BOOK DESCRIPTIONS or IBSN, and then implement additional scrapers to add BOOK DESCRIPTIONS and BLURBS when users hover over a book in their library
 (A) consider adding ADDED functionality which allows for users to instead of generating a library, allows users to scan all edges of their book, then convert it to a FLAT SPLAYED OUT visualistion of the entire cover (cover, spine, back), then provide exporting to common 3d formats especially blender and others
