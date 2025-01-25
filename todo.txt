@@ -8,9 +8,18 @@ x (A) make the README in ./app have an ascii cat holding both naive and smart-pi
 x (A) implement the backend logic with the frontend in nextjs react 
 x (A) work out how to deploy the entire nonsense bullshit on vercel
 
-(A) allow users to have a usable frontend to crop images instead for now, then move on with the project to implement animal crossing style comments first
-(A) edit the ./src/crop.py to have a usable frontend first
 (A) focus on developing piranesi as a CLI software based tool to create HTML embeddings first and foremost
+(A) edit the ./src/crop.py to have a usable frontend first
+(A) allow users to have a usable frontend to crop images instead for now, then implement the spine and header visualisation functionality first
+(A) workaround for right now will be PERFORMING THE OPENCV AUTO EXTRACTION FIRST, then it shows the extracted image to users and ALLOWS USERS TO MANUALLY CROP THEIR IMAGE if the automatic background removal is bad, so I can focus on actually getting the html component and animation working
+(A) see if there are any cool animations i can implement when users hover over each book
+(A) get the bookshelf itself to be visualised in as well, consider stealing images from pintrest or elsewhere
+(A) also let users visualise a haphazard stack of books if they want
+(A) move on with the rest of the project to allow users to implement animal crossing style comments first
+
+(A) consider linking the openlibrary API functionality to the existing program where users after adding images of their covers and spines, can then specify which book has been added if the OCR isn't working by searching for their specific book through the openlibraryAPI to see if there's any added value
+(A) check if there is any other added value that openlibrary API can provide such as BOOK BLURBS or BOOK DESCRIPTIONS or IBSN, and then implement additional scrapers to add BOOK DESCRIPTIONS and BLURBS when users hover over a book in their library
+(A) consider adding ADDED functionality which allows for users to instead of generating a library, allows users to scan all edges of their book, then convert it to a FLAT SPLAYED OUT visualistion of the entire cover (cover, spine, back), then provide exporting to common 3d formats especially blender and others
 
 (A) consider integrating a locally-run or API-called LLM to generate what it thinks the spine of that book should look like, including multiple safeguards to ensure the image generated isn't too offensive 
 (A) store scraped data and other relevant things in mongodb, then learn how to spin things up on a local instance, schedule everything with anacron or github scheduled actions, see huey's lacuna case website that has scheduled scraping similar to https://github.com/hueyy/lacuna-db
