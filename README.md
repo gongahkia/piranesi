@@ -1,6 +1,12 @@
 [![](https://img.shields.io/badge/naive_piranesi_1.0.0-up-green)](https://naive-piranesi.vercel.app/)
 [![](https://img.shields.io/badge/piranesi_1.0.0-build-orange)](https://github.com/gongahkia/piranesi/releases/tag/1.0.0)
 
+> [!NOTE]  
+> [`Piranesi`](https://github.com/gongahkia/piranesi) is now live at [https://naive-piranesi.vercel.app/](https://naive-piranesi.vercel.app/)!
+  
+> [!IMPORTANT]  
+> Please read through [this disclaimer](#disclaimer) before using [Piranesi](https://github.com/gongahkia/piranesi).
+
 # `Piranesi` 🏛️
 
 Physical book collections are awesome. Virtual libraries should be too.
