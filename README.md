@@ -40,7 +40,3 @@ The name `Piranesi` is in reference to the [18th century](https://en.wikipedia.o
 ## Inspiration
 
 > TODO add here
-
-Visually, `Piranesi` takes much reference from ...
-
-Conceptually, `Piranesi` was developed by ... 
