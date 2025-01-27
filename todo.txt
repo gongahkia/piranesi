@@ -8,6 +8,9 @@ x (A) make the README in ./app have an ascii cat holding both naive and smart-pi
 x (A) implement the backend logic with the frontend in nextjs react 
 x (A) work out how to deploy the entire nonsense bullshit on vercel
 
+(A) consider taking down the piranesi vercel app first and removing all the mentions of live vercel deployments in all README.md documents in this repo
+(A) take a look at https://yasoob.me/2015/03/11/a-guide-to-finding-books-in-images-using-python-and-opencv/ and the other reference code nichole sent in telegram under reference.py
+
 (A) focus on developing piranesi as a CLI software based tool to create HTML embeddings first and foremost
 (A) edit the ./src/crop.py to have a usable frontend first
 (A) allow users to have a usable frontend to crop images instead for now, then implement the spine and header visualisation functionality first
