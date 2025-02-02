@@ -21,5 +21,5 @@ Then visit [`http://localhost:3000`](http://localhost:3000).
 
 ## Screenshot
 
-![](./../../asset/reference/piranesi_light_v1.png)
-![](./../../asset/reference/piranesi_dark_v1.png)
+![](./../../asset/reference/naive_piranesi_light_v1.png)
+![](./../../asset/reference/naive_piranesi_dark_v1.png)

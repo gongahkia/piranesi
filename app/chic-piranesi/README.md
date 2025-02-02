@@ -13,6 +13,7 @@ To locally deploy, first run.
 
 ```console
 $ cd chic-piranesi
+$ npm install tailwindcss-animate
 $ npm install @tanstack/react-query lucide-react
 $ npm run dev
 ```
@@ -21,5 +22,7 @@ Then visit [`http://localhost:3000`](http://localhost:3000).
 
 ## Screenshot
 
-![](./../../asset/reference/piranesi_light_v1.png)
-![](./../../asset/reference/piranesi_dark_v1.png)
+![](./../../asset/reference/chic_piranesi_v1_landing.png)
+![](./../../asset/reference/chic_piranesi_v1_legal.png)
+![](./../../asset/reference/chic_piranesi_v1_dashboard.png)
+![](./../../asset/reference/chic_piranesi_v1_populated_dashboard.png)
