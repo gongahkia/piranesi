@@ -8,6 +8,8 @@ x (A) make the README in ./app have an ascii cat holding both naive and smart-pi
 x (A) implement the backend logic with the frontend in nextjs react 
 x (A) work out how to deploy the entire nonsense bullshit on vercel
 x (A) consider taking down the piranesi vercel app first and removing all the mentions of live vercel deployments in all README.md documents in this repo
+x (A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it and include animated ascii to write more spcecific frontend code to animate things and make it look cleaner
+x (A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
 
 (A) every commerical book ever produced has a barcode somewhere on its front or back, so write a barcode scanner that when given a cover, will extract the barcode and scan it, then output the scanned results to a json, and extract relevant information like the book's ISBN to readily search it via openlibrary's api which i have code for under retrieve.py
 (A) then take a look at https://yasoob.me/2015/03/11/a-guide-to-finding-books-in-images-using-python-and-opencv/ and the other reference code nichole sent in telegram under reference.py
@@ -35,9 +37,6 @@ x (A) consider taking down the piranesi vercel app first and removing all the me
 (A) add more details that I want to extract, such as author name, book cover, authorial date etc from the openlibraryapi
 (A) look into openlibrary or openbook and using their exposed API to obtain a DATABASE of book covers and names
 (A) try and debug the broken OCR as an alternative to the broken edge detection 
-
-(A) aesthtically, can keep the login screen as cryptic as the library of babel's login screen from here https://libraryofbabel.info/, consider using ASCII to render it and include animated ascii to write more spcecific frontend code to animate things and make it look cleaner
-(A) fix naive-piranesi to migrate data storage from just being stored on vercel's servers (and thus eating their memory) to being stored on an actual database
 
 (A) debug issues arising from my vercel deployment of smart-piranesi, specifically the interaction with MONGODB and whether there's anything thats being sent and consider integrating vercel postgresql instead
 (A) why is it that the search query works (reflecting the API itself is working) but adding books is not, clearly its an issue with mongodb interaction
