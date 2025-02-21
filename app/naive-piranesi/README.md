@@ -1,6 +1,6 @@
 > [!WARNING]  
 > Naive Piranesi's live deployment with Vercel has been discontinued for the time being.  
-> Focus will be on Piranesi, the CLI application.  
+> Focus will be on Piranesi, [the CLI application](https://github.com/gongahkia/the-sandbox/tree/main/python/virtual_library_creator).  
 > ~ Gabriel
 
 # Naive [`Piranesi`](https://github.com/gongahkia/piranesi) web app 🪅🏛️
