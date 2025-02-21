@@ -6,7 +6,9 @@ Physical book collections are awesome. Virtual libraries should be too.
 
 ## Usage
 
-Explore the [Piranesi web app universe 🚀](./app/) by clicking below.
+Explore the [Piranesi web app universe 🚀](./app/) by clicking below.   
+  
+There are currently 3 galaxies to explore. 🌌
 
 <pre>
           <a href="./app/naive-piranesi/">naive-piranesi</a>     <a href="./app/smart-piranesi/">smart-piranesi</a>                    _______
@@ -20,10 +22,66 @@ Explore the [Piranesi web app universe 🚀](./app/) by clicking below.
                                                             | | |   | | |
 </pre>
 
-
 ## Architecture 
 
-> TODO add description and mermaid or C4 diagram here
+Data is written and stored to [Supabase](https://supabase.com/) per the below schema.
+
+### DB
+
+```mermaid
+erDiagram
+    USER {
+        uuid id PK
+        string email
+        string username
+        timestamp created_at
+    }
+    BOOK {
+        string olid PK "OpenLibrary ID"
+        string title
+        string author
+        int publish_year
+        string cover_url
+    }
+    USER_BOOK {
+        uuid user_id FK
+        string book_olid FK
+        timestamp added_at
+        string notes
+    }
+
+    USER ||--o{ USER_BOOK : "saves"
+    BOOK ||--o{ USER_BOOK : "saved by"
+```
+
+### Overview
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant NextJS as NextJS Frontend
+    participant OpenLibrary as OpenLibrary API
+    participant FastAPI as FastAPI Backend
+    participant Supabase as Supabase Database
+
+    User->>NextJS: Search for books
+    NextJS->>OpenLibrary: Request book data
+    OpenLibrary-->>NextJS: Return book data
+    NextJS-->>User: Display book results
+    User->>NextJS: Select books to save
+    NextJS->>FastAPI: Send selected books
+    FastAPI->>Supabase: Store user's books
+    Supabase-->>FastAPI: Confirm storage
+    FastAPI-->>NextJS: Confirm save
+    NextJS-->>User: Display confirmation
+
+    User->>NextJS: Request saved books
+    NextJS->>FastAPI: Get user's books
+    FastAPI->>Supabase: Retrieve user's books
+    Supabase-->>FastAPI: Return user's books
+    FastAPI-->>NextJS: Send user's books
+    NextJS-->>User: Display saved books
+```
 
 ## References
 
