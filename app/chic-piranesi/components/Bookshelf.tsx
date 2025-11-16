@@ -7,6 +7,7 @@ import type { Book, ReadingStatus } from "@/types/book"
 import { STATUS_CONFIG } from "@/types/book"
 import StatusBadge from "./StatusBadge"
 import StatusSelector from "./StatusSelector"
+import BookDetailModal from "./BookDetailModal"
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch("/api/books")
@@ -35,12 +36,26 @@ const updateBookStatus = async ({ id, status }: { id: string; status: ReadingSta
   return response.json()
 }
 
+const updateBookShelf = async ({ id, shelfId }: { id: string; shelfId: string }) => {
+  const response = await fetch("/api/books", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, shelfId }),
+  })
+  if (!response.ok) {
+    throw new Error("Failed to update book shelf")
+  }
+  return response.json()
+}
+
 interface BookshelfProps {
   selectedShelfId: string
 }
 
 export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   const [hoveredBook, setHoveredBook] = useState<Book | null>(null)
+  const [modalBook, setModalBook] = useState<Book | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const queryClient = useQueryClient()
   const { data: allBooks = [] } = useQuery({
     queryKey: ["books"],
@@ -64,12 +79,33 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
     },
   })
 
+  const shelfMutation = useMutation({
+    mutationFn: updateBookShelf,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["books"] })
+    },
+  })
+
   const handleRemove = (id: string) => {
     removeMutation.mutate(id)
   }
 
   const handleStatusChange = (id: string, status: ReadingStatus) => {
     statusMutation.mutate({ id, status })
+  }
+
+  const handleShelfChange = (id: string, shelfId: string) => {
+    shelfMutation.mutate({ id, shelfId })
+  }
+
+  const handleBookClick = (book: Book) => {
+    setModalBook(book)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setModalBook(null)
   }
 
   const renderBookSpine = (book: Book, index: number) => {
@@ -80,6 +116,7 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
         className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${statusColor}`}
         onMouseEnter={() => setHoveredBook(book)}
         onMouseLeave={() => setHoveredBook(null)}
+        onClick={() => handleBookClick(book)}
       >
         <div className="absolute inset-0 flex items-center justify-center">
           <span className="text-white font-bold text-xs writing-mode-vertical-rl rotate-180 whitespace-nowrap overflow-hidden text-ellipsis max-h-full px-1">
@@ -143,6 +180,14 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
           </div>
         </div>
       )}
+
+      <BookDetailModal
+        book={modalBook}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onStatusChange={handleStatusChange}
+        onShelfChange={handleShelfChange}
+      />
     </div>
   )
 }
