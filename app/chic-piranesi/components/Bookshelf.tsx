@@ -11,6 +11,7 @@ import BookDetailModal from "./BookDetailModal"
 import { extractColorClient, getSpineColorStyle } from "@/lib/colorExtraction"
 import { getSpineStyles } from "@/lib/spineWidth"
 import { sortBooks, type SortMode } from "@/lib/bookSorting"
+import { getAgingStyles } from "@/lib/bookAging"
 import SortSelector from "./SortSelector"
 
 const fetchBooks = async (): Promise<Book[]> => {
@@ -148,13 +149,17 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
     // Get spine width based on page count
     const spineInfo = getSpineStyles(book.pageCount)
 
+    // Get aging effects
+    const agingStyle = getAgingStyles(book)
+
     const colorStyle = extractedColor ? getSpineColorStyle(extractedColor) : {}
     const hasCustomColor = !!extractedColor
 
-    // Combine color and width styles
+    // Combine color, width, and aging styles
     const combinedStyle = {
       ...colorStyle,
-      ...spineInfo.widthStyle
+      ...spineInfo.widthStyle,
+      ...agingStyle
     }
 
     return (
