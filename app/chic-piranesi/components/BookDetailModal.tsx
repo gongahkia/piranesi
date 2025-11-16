@@ -4,15 +4,17 @@ import { X } from "lucide-react"
 import type { Book, ReadingStatus } from "@/types/book"
 import StatusBadge from "./StatusBadge"
 import StatusSelector from "./StatusSelector"
+import ShelfMover from "./ShelfMover"
 
 interface BookDetailModalProps {
   book: Book | null
   isOpen: boolean
   onClose: () => void
   onStatusChange: (bookId: string, status: ReadingStatus) => void
+  onShelfChange: (bookId: string, shelfId: string) => void
 }
 
-export default function BookDetailModal({ book, isOpen, onClose, onStatusChange }: BookDetailModalProps) {
+export default function BookDetailModal({ book, isOpen, onClose, onStatusChange, onShelfChange }: BookDetailModalProps) {
   if (!isOpen || !book) return null
 
   return (
@@ -60,11 +62,15 @@ export default function BookDetailModal({ book, isOpen, onClose, onStatusChange 
                   <p className="text-xl text-gray-600 mb-4">{book.author}</p>
 
                   {/* Status Controls */}
-                  <div className="mb-6 flex items-center gap-3">
+                  <div className="mb-6 flex items-center gap-3 flex-wrap">
                     <StatusBadge status={book.status} />
                     <StatusSelector
                       currentStatus={book.status}
                       onStatusChange={(status) => onStatusChange(book.id, status)}
+                    />
+                    <ShelfMover
+                      currentShelfId={book.shelfId}
+                      onShelfChange={(shelfId) => onShelfChange(book.id, shelfId)}
                     />
                   </div>
 
