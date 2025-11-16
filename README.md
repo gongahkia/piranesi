@@ -7,9 +7,9 @@ Physical book collections are awesome. Virtual libraries should be too.
 
 ## Usage
 
-Explore the [Piranesi web app universe 🚀](./app/) by clicking below.   
+Explore the [Piranesi web app universe](./app/) by clicking below.   
   
-There are currently 3 galaxies to explore. 🌌
+There are currently 3 galaxies to explore.
 
 <pre>
           <a href="./app/naive-piranesi/">naive-piranesi</a>     <a href="./app/smart-piranesi/">smart-piranesi</a>                    _______
