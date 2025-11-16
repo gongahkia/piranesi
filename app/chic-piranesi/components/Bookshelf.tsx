@@ -61,8 +61,16 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   const [modalBook, setModalBook] = useState<Book | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [bookColors, setBookColors] = useState<Record<string, string>>({})
-  const [sortMode, setSortMode] = useState<SortMode>('date-added')
+  const [sortPreferences, setSortPreferences] = useState<Record<string, SortMode>>({})
   const queryClient = useQueryClient()
+
+  // Get sort mode for current shelf (with fallback to date-added)
+  const sortMode = sortPreferences[selectedShelfId] || 'date-added'
+
+  // Update sort preference for current shelf
+  const handleSortChange = (mode: SortMode) => {
+    setSortPreferences(prev => ({ ...prev, [selectedShelfId]: mode }))
+  }
   const { data: allBooks = [] } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
@@ -190,7 +198,7 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
             <div className="text-sm text-gray-600">
               {books.length} {books.length === 1 ? 'book' : 'books'}
             </div>
-            <SortSelector currentSort={sortMode} onSortChange={setSortMode} />
+            <SortSelector currentSort={sortMode} onSortChange={handleSortChange} />
           </div>
           <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-8 rounded-lg shadow-lg">
             <div className="flex flex-wrap gap-2 justify-center">
