@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { X } from "lucide-react"
 import type { Book, ReadingStatus } from "@/types/book"
@@ -8,6 +8,7 @@ import { STATUS_CONFIG } from "@/types/book"
 import StatusBadge from "./StatusBadge"
 import StatusSelector from "./StatusSelector"
 import BookDetailModal from "./BookDetailModal"
+import { extractColorClient, getSpineColorStyle } from "@/lib/colorExtraction"
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch("/api/books")
@@ -56,6 +57,7 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   const [hoveredBook, setHoveredBook] = useState<Book | null>(null)
   const [modalBook, setModalBook] = useState<Book | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [bookColors, setBookColors] = useState<Record<string, string>>({})
   const queryClient = useQueryClient()
   const { data: allBooks = [] } = useQuery({
     queryKey: ["books"],
@@ -64,6 +66,20 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
 
   // Filter books by selected shelf
   const books = allBooks.filter(book => book.shelfId === selectedShelfId)
+
+  // Extract colors for books that don't have them yet
+  useEffect(() => {
+    books.forEach(async (book) => {
+      if (!bookColors[book.id] && book.cover && !book.cover.includes('placeholder')) {
+        try {
+          const color = await extractColorClient(book.cover)
+          setBookColors(prev => ({ ...prev, [book.id]: color }))
+        } catch (error) {
+          console.error(`Failed to extract color for ${book.title}:`, error)
+        }
+      }
+    })
+  }, [books, bookColors])
 
   const removeMutation = useMutation({
     mutationFn: removeBook,
@@ -109,17 +125,25 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   }
 
   const renderBookSpine = (book: Book, index: number) => {
+    // Prioritize extracted color, fall back to status color
+    const extractedColor = book.spineColor || bookColors[book.id]
     const statusColor = STATUS_CONFIG[book.status].color
+    const spineColor = extractedColor || statusColor
+
+    const spineStyle = extractedColor ? getSpineColorStyle(extractedColor) : {}
+    const hasCustomColor = !!extractedColor
+
     return (
       <div
         key={book.id}
-        className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${statusColor}`}
+        className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${hasCustomColor ? '' : statusColor}`}
+        style={hasCustomColor ? spineStyle : undefined}
         onMouseEnter={() => setHoveredBook(book)}
         onMouseLeave={() => setHoveredBook(null)}
         onClick={() => handleBookClick(book)}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-white font-bold text-xs writing-mode-vertical-rl rotate-180 whitespace-nowrap overflow-hidden text-ellipsis max-h-full px-1">
+          <span className={`font-bold text-xs writing-mode-vertical-rl rotate-180 whitespace-nowrap overflow-hidden text-ellipsis max-h-full px-1 ${hasCustomColor ? '' : 'text-white'}`}>
             {book.title}
           </span>
         </div>
