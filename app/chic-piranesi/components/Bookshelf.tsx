@@ -3,16 +3,10 @@
 import { useState, useMemo } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { X } from "lucide-react"
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  cover: string
-  isbn: string
-  first_publish_year: number | string
-  publisher: string
-}
+import type { Book, ReadingStatus } from "@/types/book"
+import { STATUS_CONFIG } from "@/types/book"
+import StatusBadge from "./StatusBadge"
+import StatusSelector from "./StatusSelector"
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch("/api/books")
@@ -29,9 +23,16 @@ const removeBook = async (id: string): Promise<void> => {
   }
 }
 
-const getRandomColor = () => {
-  const colors = ["bg-gray-700", "bg-gray-800", "bg-gray-900", "bg-slate-700", "bg-slate-800", "bg-slate-900"]
-  return colors[Math.floor(Math.random() * colors.length)]
+const updateBookStatus = async ({ id, status }: { id: string; status: ReadingStatus }) => {
+  const response = await fetch("/api/books", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, status }),
+  })
+  if (!response.ok) {
+    throw new Error("Failed to update book status")
+  }
+  return response.json()
 }
 
 export default function Bookshelf() {
@@ -49,22 +50,27 @@ export default function Bookshelf() {
     },
   })
 
+  const statusMutation = useMutation({
+    mutationFn: updateBookStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["books"] })
+    },
+  })
+
   const handleRemove = (id: string) => {
     removeMutation.mutate(id)
   }
 
-  const bookStyles = useMemo(() => {
-    return books.map(() => ({
-      color: getRandomColor(),
-    }))
-  }, [books])
+  const handleStatusChange = (id: string, status: ReadingStatus) => {
+    statusMutation.mutate({ id, status })
+  }
 
   const renderBookSpine = (book: Book, index: number) => {
-    const { color } = bookStyles[index]
+    const statusColor = STATUS_CONFIG[book.status].color
     return (
       <div
         key={book.id}
-        className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${color}`}
+        className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${statusColor}`}
         onMouseEnter={() => setHoveredBook(book)}
         onMouseLeave={() => setHoveredBook(null)}
       >
@@ -78,7 +84,7 @@ export default function Bookshelf() {
             e.stopPropagation()
             handleRemove(book.id)
           }}
-          className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
           aria-label={`Remove ${book.title}`}
         >
           <X size={12} />
@@ -107,12 +113,26 @@ export default function Bookshelf() {
             alt={hoveredBook.title}
             className="w-24 h-36 object-cover rounded"
           />
-          <div>
-            <h3 className="font-bold text-lg">{hoveredBook.title}</h3>
-            <p className="text-gray-600">{hoveredBook.author}</p>
+          <div className="flex-1">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="font-bold text-lg">{hoveredBook.title}</h3>
+                <p className="text-gray-600">{hoveredBook.author}</p>
+              </div>
+              <StatusSelector
+                currentStatus={hoveredBook.status}
+                onStatusChange={(status) => handleStatusChange(hoveredBook.id, status)}
+              />
+            </div>
+            <div className="mt-2">
+              <StatusBadge status={hoveredBook.status} className="mb-2" />
+            </div>
             <p className="text-gray-500 text-sm mt-1">ISBN: {hoveredBook.isbn}</p>
             <p className="text-gray-500 text-sm">First Published: {hoveredBook.first_publish_year}</p>
             <p className="text-gray-500 text-sm">Publisher: {hoveredBook.publisher}</p>
+            {hoveredBook.pageCount && (
+              <p className="text-gray-500 text-sm">Pages: {hoveredBook.pageCount}</p>
+            )}
           </div>
         </div>
       )}
