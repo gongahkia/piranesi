@@ -10,6 +10,8 @@ import StatusSelector from "./StatusSelector"
 import BookDetailModal from "./BookDetailModal"
 import { extractColorClient, getSpineColorStyle } from "@/lib/colorExtraction"
 import { getSpineStyles } from "@/lib/spineWidth"
+import { sortBooks, type SortMode } from "@/lib/bookSorting"
+import SortSelector from "./SortSelector"
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch("/api/books")
@@ -59,6 +61,7 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   const [modalBook, setModalBook] = useState<Book | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [bookColors, setBookColors] = useState<Record<string, string>>({})
+  const [sortMode, setSortMode] = useState<SortMode>('date-added')
   const queryClient = useQueryClient()
   const { data: allBooks = [] } = useQuery({
     queryKey: ["books"],
@@ -66,7 +69,10 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   })
 
   // Filter books by selected shelf
-  const books = allBooks.filter(book => book.shelfId === selectedShelfId)
+  const filteredBooks = allBooks.filter(book => book.shelfId === selectedShelfId)
+
+  // Apply sorting
+  const books = sortBooks(filteredBooks, sortMode, bookColors)
 
   // Extract colors for books that don't have them yet
   useEffect(() => {
