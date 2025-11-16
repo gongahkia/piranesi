@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server"
 
 interface BookData {
-  id: string
+  key: string
   title: string
   author_name: string[]
   cover_i?: number
   isbn?: string[]
   first_publish_year?: number
   publisher?: string[]
+  number_of_pages_median?: number
 }
 
 export async function GET(request: Request) {
@@ -29,6 +30,7 @@ export async function GET(request: Request) {
     isbn: book.isbn ? book.isbn[0] : "N/A",
     first_publish_year: book.first_publish_year || "N/A",
     publisher: book.publisher ? book.publisher[0] : "N/A",
+    number_of_pages_median: book.number_of_pages_median,
   }))
 
   return NextResponse.json(results)
