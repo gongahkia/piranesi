@@ -5,12 +5,22 @@ import Bookshelf from "@/components/Bookshelf"
 import SearchBar from "@/components/SearchBar"
 import ShelfNav from "@/components/ShelfNav"
 import ExportMenu from "@/components/ExportMenu"
+import FloorPlanView from "@/components/FloorPlanView"
+import ViewToggle, { type ViewMode } from "@/components/ViewToggle"
 import LandingPage from "@/components/LandingPage"
 import InitialLandingPage from "@/components/InitialLandingPage"
+import { toggleEtchingMode, isEtchingModeActive } from "@/lib/etchingFilter"
 
 export default function Home() {
   const [stage, setStage] = useState<"initial" | "disclaimer" | "main">("initial")
   const [selectedShelfId, setSelectedShelfId] = useState<string>("cell-a")
+  const [viewMode, setViewMode] = useState<ViewMode>('shelf')
+  const [etchingMode, setEtchingMode] = useState(false)
+
+  const handleEtchingToggle = () => {
+    const newState = toggleEtchingMode()
+    setEtchingMode(newState)
+  }
 
   if (stage === "initial") {
     return <InitialLandingPage onStart={() => setStage("disclaimer")} />
@@ -41,10 +51,24 @@ export default function Home() {
           <ExportMenu />
         </div>
         <SearchBar selectedShelfId={selectedShelfId} />
-        <div className="flex gap-6 mt-8">
+
+        <div className="mt-6 flex justify-end">
+          <ViewToggle
+            currentView={viewMode}
+            onViewChange={setViewMode}
+            etchingMode={etchingMode}
+            onEtchingToggle={handleEtchingToggle}
+          />
+        </div>
+
+        <div className="flex gap-6 mt-6">
           <ShelfNav selectedShelfId={selectedShelfId} onShelfSelect={setSelectedShelfId} />
           <div className="flex-1">
-            <Bookshelf selectedShelfId={selectedShelfId} />
+            {viewMode === 'shelf' ? (
+              <Bookshelf selectedShelfId={selectedShelfId} />
+            ) : (
+              <FloorPlanView selectedShelfId={selectedShelfId} onShelfClick={setSelectedShelfId} />
+            )}
           </div>
         </div>
       </div>
