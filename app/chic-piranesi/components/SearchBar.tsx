@@ -12,6 +12,7 @@ interface SearchResult {
   isbn: string
   first_publish_year: number | string
   publisher: string
+  number_of_pages_median?: number
 }
 
 const searchBooks = async (query: string): Promise<SearchResult[]> => {
@@ -131,7 +132,14 @@ export default function SearchBar({ selectedShelfId }: SearchBarProps) {
               <div>
                 <span className="text-gray-800 font-semibold">{book.title}</span>
                 <p className="text-sm text-gray-600">by {book.author_name?.[0]}</p>
-                <p className="text-xs text-gray-500">ISBN: {book.isbn}</p>
+                <div className="flex gap-3 text-xs text-gray-500">
+                  <span>ISBN: {book.isbn}</span>
+                  {book.number_of_pages_median && (
+                    <span className="font-semibold text-purple-600">
+                      📖 {book.number_of_pages_median} pages
+                    </span>
+                  )}
+                </div>
               </div>
               <button
                 onClick={() => addBookMutation.mutate({ ...book, shelfId: selectedShelfId })}
