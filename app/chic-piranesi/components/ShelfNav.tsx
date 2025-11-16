@@ -43,7 +43,7 @@ export default function ShelfNav({ selectedShelfId, onShelfSelect }: ShelfNavPro
   const [isCreating, setIsCreating] = useState(false)
   const [newShelfName, setNewShelfName] = useState("")
   const [newShelfDesc, setNewShelfDesc] = useState("")
-  const [newShelfIcon, setNewShelfIcon] = useState("📚")
+  const [newShelfIcon, setNewShelfIcon] = useState("*")
 
   const queryClient = useQueryClient()
 
@@ -64,7 +64,7 @@ export default function ShelfNav({ selectedShelfId, onShelfSelect }: ShelfNavPro
       setIsCreating(false)
       setNewShelfName("")
       setNewShelfDesc("")
-      setNewShelfIcon("📚")
+      setNewShelfIcon("*")
     },
   })
 
@@ -134,7 +134,7 @@ export default function ShelfNav({ selectedShelfId, onShelfSelect }: ShelfNavPro
             type="text"
             value={newShelfIcon}
             onChange={(e) => setNewShelfIcon(e.target.value)}
-            placeholder="📚"
+            placeholder="*"
             className="w-full px-2 py-1 text-2xl text-center mb-2 border border-gray-300 rounded"
             maxLength={2}
           />

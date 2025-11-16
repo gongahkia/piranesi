@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     name: shelfData.name,
     description: shelfData.description || '',
     isDefault: false,
-    icon: shelfData.icon || '📚',
+    icon: shelfData.icon || '*',
     createdAt: new Date().toISOString(),
   }
 

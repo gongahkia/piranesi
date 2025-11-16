@@ -140,7 +140,7 @@ export default function SearchBar({ selectedShelfId }: SearchBarProps) {
                   <span>ISBN: {book.isbn}</span>
                   {book.number_of_pages_median && (
                     <span className="font-semibold text-purple-600">
-                      📖 {book.number_of_pages_median} pages
+                      {book.number_of_pages_median} pages
                     </span>
                   )}
                   {book.source && (
@@ -149,8 +149,8 @@ export default function SearchBar({ selectedShelfId }: SearchBarProps) {
                       book.source === 'google' ? 'bg-blue-100 text-blue-700' :
                       'bg-orange-100 text-orange-700'
                     }`}>
-                      {book.source === 'hybrid' ? '🔄 Merged' :
-                       book.source === 'google' ? '📘 Google' : '📚 OpenLib'}
+                      {book.source === 'hybrid' ? 'Merged' :
+                       book.source === 'google' ? 'Google' : 'OpenLib'}
                     </span>
                   )}
                 </div>

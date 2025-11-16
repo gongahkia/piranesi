@@ -62,7 +62,7 @@ export default function FloorPlanView({ onShelfClick, selectedShelfId }: FloorPl
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <div className="mb-4">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">📐 Architectural Floor Plan</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Architectural Floor Plan</h2>
         <p className="text-sm text-gray-600">
           A top-down view of your library. Room size indicates book count.
         </p>

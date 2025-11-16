@@ -15,7 +15,7 @@ export const DEFAULT_SHELVES: Shelf[] = [
     name: 'Cell A',
     description: 'The primary holding cell for your collection',
     isDefault: true,
-    icon: '🏛️',
+    icon: 'I',
     createdAt: new Date().toISOString(),
   },
   {
@@ -23,7 +23,7 @@ export const DEFAULT_SHELVES: Shelf[] = [
     name: 'Grand Gallery',
     description: 'The magnificent central gallery',
     isDefault: true,
-    icon: '🖼️',
+    icon: 'II',
     createdAt: new Date().toISOString(),
   },
   {
@@ -31,7 +31,7 @@ export const DEFAULT_SHELVES: Shelf[] = [
     name: 'The Carceri',
     description: 'Inspired by Piranesi\'s Imaginary Prisons',
     isDefault: true,
-    icon: '⛓️',
+    icon: 'III',
     createdAt: new Date().toISOString(),
   },
   {
@@ -39,7 +39,7 @@ export const DEFAULT_SHELVES: Shelf[] = [
     name: 'Architect\'s Study',
     description: 'Your personal architectural library',
     isDefault: true,
-    icon: '📐',
+    icon: 'IV',
     createdAt: new Date().toISOString(),
   },
 ]
