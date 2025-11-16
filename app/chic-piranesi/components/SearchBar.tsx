@@ -13,10 +13,14 @@ interface SearchResult {
   first_publish_year: number | string
   publisher: string
   number_of_pages_median?: number
+  source?: 'google' | 'openlibrary' | 'hybrid'
+  description?: string
+  coverUrl?: string
 }
 
 const searchBooks = async (query: string): Promise<SearchResult[]> => {
-  const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+  // Use hybrid search for better results
+  const response = await fetch(`/api/hybrid-search?q=${encodeURIComponent(query)}`)
   if (!response.ok) {
     throw new Error("Failed to search books")
   }
@@ -132,11 +136,21 @@ export default function SearchBar({ selectedShelfId }: SearchBarProps) {
               <div>
                 <span className="text-gray-800 font-semibold">{book.title}</span>
                 <p className="text-sm text-gray-600">by {book.author_name?.[0]}</p>
-                <div className="flex gap-3 text-xs text-gray-500">
+                <div className="flex gap-3 text-xs text-gray-500 items-center">
                   <span>ISBN: {book.isbn}</span>
                   {book.number_of_pages_median && (
                     <span className="font-semibold text-purple-600">
                       📖 {book.number_of_pages_median} pages
+                    </span>
+                  )}
+                  {book.source && (
+                    <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      book.source === 'hybrid' ? 'bg-green-100 text-green-700' :
+                      book.source === 'google' ? 'bg-blue-100 text-blue-700' :
+                      'bg-orange-100 text-orange-700'
+                    }`}>
+                      {book.source === 'hybrid' ? '🔄 Merged' :
+                       book.source === 'google' ? '📘 Google' : '📚 OpenLib'}
                     </span>
                   )}
                 </div>
