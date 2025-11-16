@@ -1,4 +1,5 @@
-[![](https://img.shields.io/badge/piranesi_1.0.0-up-green)](https://github.com/gongahkia/piranesi/releases/tag/1.0.0)
+[![](https://img.shields.io/badge/piranesi_1.0.0-up-light_green)](https://github.com/gongahkia/piranesi/releases/tag/1.0.0)
+[![](https://img.shields.io/badge/piranesi_2.0.0-up-green)](https://github.com/gongahkia/piranesi/releases/tag/2.0.0)
   
 # `Piranesi` 🏛️
 
