@@ -1,15 +1,18 @@
 "use client"
 
 import { X } from "lucide-react"
-import type { Book } from "@/types/book"
+import type { Book, ReadingStatus } from "@/types/book"
+import StatusBadge from "./StatusBadge"
+import StatusSelector from "./StatusSelector"
 
 interface BookDetailModalProps {
   book: Book | null
   isOpen: boolean
   onClose: () => void
+  onStatusChange: (bookId: string, status: ReadingStatus) => void
 }
 
-export default function BookDetailModal({ book, isOpen, onClose }: BookDetailModalProps) {
+export default function BookDetailModal({ book, isOpen, onClose, onStatusChange }: BookDetailModalProps) {
   if (!isOpen || !book) return null
 
   return (
@@ -55,6 +58,15 @@ export default function BookDetailModal({ book, isOpen, onClose }: BookDetailMod
                 <div className="flex-1">
                   <h3 className="text-3xl font-bold text-gray-900 mb-2">{book.title}</h3>
                   <p className="text-xl text-gray-600 mb-4">{book.author}</p>
+
+                  {/* Status Controls */}
+                  <div className="mb-6 flex items-center gap-3">
+                    <StatusBadge status={book.status} />
+                    <StatusSelector
+                      currentStatus={book.status}
+                      onStatusChange={(status) => onStatusChange(book.id, status)}
+                    />
+                  </div>
 
                   <div className="space-y-3">
                     <div className="flex items-start">
