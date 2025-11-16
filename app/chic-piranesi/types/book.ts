@@ -45,4 +45,5 @@ export interface Book {
   dateAdded: string
   dateCompleted?: string
   pageCount?: number
+  shelfId: string // Which shelf this book belongs to
 }

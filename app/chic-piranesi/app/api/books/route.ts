@@ -20,13 +20,14 @@ export async function POST(request: Request) {
     status: book.status || 'imprisoned',
     dateAdded: new Date().toISOString(),
     pageCount: book.number_of_pages_median || book.pageCount,
+    shelfId: book.shelfId || 'cell-a', // Default to Cell A
   }
   books.push(newBook)
   return NextResponse.json(newBook)
 }
 
 export async function PATCH(request: Request) {
-  const { id, status, dateCompleted } = await request.json()
+  const { id, status, dateCompleted, shelfId } = await request.json()
 
   if (!id) {
     return NextResponse.json({ error: "Book ID is required" }, { status: 400 })
@@ -40,8 +41,9 @@ export async function PATCH(request: Request) {
 
   books[bookIndex] = {
     ...books[bookIndex],
-    status: status || books[bookIndex].status,
+    status: status !== undefined ? status : books[bookIndex].status,
     dateCompleted: status === 'escaped' ? (dateCompleted || new Date().toISOString()) : undefined,
+    shelfId: shelfId !== undefined ? shelfId : books[bookIndex].shelfId,
   }
 
   return NextResponse.json(books[bookIndex])
