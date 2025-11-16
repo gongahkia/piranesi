@@ -2,7 +2,8 @@
 
 import { useState } from "react"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { Plus, Trash2, Edit2, BookOpen } from "lucide-react"
+import { Plus, Trash2, Edit2, BookOpen, Download } from "lucide-react"
+import { exportToCSV, exportToPDF } from "@/lib/catalogExport"
 import type { Shelf } from "@/types/shelf"
 import type { Book } from "@/types/book"
 
@@ -88,17 +89,43 @@ export default function ShelfNav({ selectedShelfId, onShelfSelect }: ShelfNavPro
     return books.filter(book => book.shelfId === shelfId).length
   }
 
+  const handleExportShelf = (shelfId: string) => {
+    const shelfBooks = books.filter(book => book.shelfId === shelfId)
+    const shelf = shelves.find(s => s.id === shelfId)
+
+    if (shelfBooks.length === 0) {
+      alert('No books in this shelf to export')
+      return
+    }
+
+    // Quick export as PDF
+    exportToPDF(shelfBooks, shelf ? [shelf] : shelves, {
+      includeStatus: true,
+      includeShelf: false,
+      groupByShelf: false,
+    })
+  }
+
   return (
     <div className="w-64 bg-white rounded-lg shadow-md p-4 h-fit">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-800">Library Wings</h2>
-        <button
-          onClick={() => setIsCreating(!isCreating)}
-          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-          title="Create new shelf"
-        >
-          <Plus size={18} className="text-gray-600" />
-        </button>
+        <div className="flex gap-1">
+          <button
+            onClick={() => handleExportShelf(selectedShelfId)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            title="Export current shelf"
+          >
+            <Download size={16} className="text-gray-600" />
+          </button>
+          <button
+            onClick={() => setIsCreating(!isCreating)}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            title="Create new shelf"
+          >
+            <Plus size={18} className="text-gray-600" />
+          </button>
+        </div>
       </div>
 
       {isCreating && (
