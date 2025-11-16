@@ -45,7 +45,11 @@ const getRandomWord = async (): Promise<string> => {
   return data.word
 }
 
-export default function SearchBar() {
+interface SearchBarProps {
+  selectedShelfId: string
+}
+
+export default function SearchBar({ selectedShelfId }: SearchBarProps) {
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<SearchResult[]>([])
   const queryClient = useQueryClient()
@@ -130,7 +134,7 @@ export default function SearchBar() {
                 <p className="text-xs text-gray-500">ISBN: {book.isbn}</p>
               </div>
               <button
-                onClick={() => addBookMutation.mutate(book)}
+                onClick={() => addBookMutation.mutate({ ...book, shelfId: selectedShelfId })}
                 className="bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 transition-colors"
                 aria-label={`Add ${book.title} to bookshelf`}
               >

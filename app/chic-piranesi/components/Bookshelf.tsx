@@ -35,13 +35,20 @@ const updateBookStatus = async ({ id, status }: { id: string; status: ReadingSta
   return response.json()
 }
 
-export default function Bookshelf() {
+interface BookshelfProps {
+  selectedShelfId: string
+}
+
+export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
   const [hoveredBook, setHoveredBook] = useState<Book | null>(null)
   const queryClient = useQueryClient()
-  const { data: books = [] } = useQuery({
+  const { data: allBooks = [] } = useQuery({
     queryKey: ["books"],
     queryFn: fetchBooks,
   })
+
+  // Filter books by selected shelf
+  const books = allBooks.filter(book => book.shelfId === selectedShelfId)
 
   const removeMutation = useMutation({
     mutationFn: removeBook,
