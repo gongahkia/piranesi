@@ -46,4 +46,5 @@ export interface Book {
   dateCompleted?: string
   pageCount?: number
   shelfId: string // Which shelf this book belongs to
+  spineColor?: string // Extracted color from book cover
 }
