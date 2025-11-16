@@ -9,11 +9,20 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const book = await request.json()
+
+  // Determine cover URL - prefer Google Books coverUrl, fall back to OpenLibrary
+  let coverUrl = "/placeholder.svg"
+  if (book.coverUrl) {
+    coverUrl = book.coverUrl
+  } else if (book.cover_i) {
+    coverUrl = `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
+  }
+
   const newBook: Book = {
     id: Date.now().toString(),
     title: book.title,
     author: book.author_name?.[0] || "Unknown",
-    cover: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : "/placeholder.svg",
+    cover: coverUrl,
     isbn: book.isbn || "N/A",
     first_publish_year: book.first_publish_year || "N/A",
     publisher: book.publisher || "N/A",
