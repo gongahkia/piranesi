@@ -185,11 +185,19 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
           <p className="text-gray-600">Your bookshelf is empty. Use the search bar above to add some books!</p>
         </div>
       ) : (
-        <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-8 rounded-lg shadow-lg">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {books.map((book, index) => renderBookSpine(book, index))}
+        <>
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-sm text-gray-600">
+              {books.length} {books.length === 1 ? 'book' : 'books'}
+            </div>
+            <SortSelector currentSort={sortMode} onSortChange={setSortMode} />
           </div>
-        </div>
+          <div className="bg-gradient-to-r from-gray-100 to-gray-200 p-8 rounded-lg shadow-lg">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {books.map((book, index) => renderBookSpine(book, index))}
+            </div>
+          </div>
+        </>
       )}
       {hoveredBook && (
         <div className="mt-4 p-4 bg-white rounded-lg shadow-md flex items-start space-x-4">
