@@ -6,6 +6,7 @@ import type { Book, ReadingStatus } from "@/types/book"
 import StatusBadge from "./StatusBadge"
 import StatusSelector from "./StatusSelector"
 import ShelfMover from "./ShelfMover"
+import { getAgingEffects } from "@/lib/bookAging"
 
 interface BookDetailModalProps {
   book: Book | null
@@ -96,6 +97,19 @@ export default function BookDetailModal({ book, isOpen, onClose, onStatusChange,
                       currentShelfId={book.shelfId}
                       onShelfChange={(shelfId) => onShelfChange(book.id, shelfId)}
                     />
+                    {(() => {
+                      const aging = getAgingEffects(book)
+                      return (
+                        <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
+                          aging.level === 'beloved' ? 'bg-amber-100 text-amber-700' :
+                          aging.level === 'well-read' ? 'bg-orange-100 text-orange-700' :
+                          aging.level === 'lightly-worn' ? 'bg-yellow-100 text-yellow-700' :
+                          'bg-gray-100 text-gray-700'
+                        }`}>
+                          {aging.description}
+                        </span>
+                      )
+                    })()}
                   </div>
 
                   <div className="space-y-3">
