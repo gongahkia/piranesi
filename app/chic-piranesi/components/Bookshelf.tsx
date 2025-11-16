@@ -9,6 +9,7 @@ import StatusBadge from "./StatusBadge"
 import StatusSelector from "./StatusSelector"
 import BookDetailModal from "./BookDetailModal"
 import { extractColorClient, getSpineColorStyle } from "@/lib/colorExtraction"
+import { getSpineStyles } from "@/lib/spineWidth"
 
 const fetchBooks = async (): Promise<Book[]> => {
   const response = await fetch("/api/books")
@@ -130,20 +131,30 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
     const statusColor = STATUS_CONFIG[book.status].color
     const spineColor = extractedColor || statusColor
 
-    const spineStyle = extractedColor ? getSpineColorStyle(extractedColor) : {}
+    // Get spine width based on page count
+    const spineInfo = getSpineStyles(book.pageCount)
+
+    const colorStyle = extractedColor ? getSpineColorStyle(extractedColor) : {}
     const hasCustomColor = !!extractedColor
+
+    // Combine color and width styles
+    const combinedStyle = {
+      ...colorStyle,
+      ...spineInfo.widthStyle
+    }
 
     return (
       <div
         key={book.id}
-        className={`w-8 h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${hasCustomColor ? '' : statusColor}`}
-        style={hasCustomColor ? spineStyle : undefined}
+        className={`h-48 relative group cursor-pointer transition-transform duration-200 ease-in-out transform hover:-translate-y-2 ${hasCustomColor ? '' : statusColor}`}
+        style={combinedStyle}
         onMouseEnter={() => setHoveredBook(book)}
         onMouseLeave={() => setHoveredBook(null)}
         onClick={() => handleBookClick(book)}
+        title={`${book.title} (${spineInfo.description}${book.pageCount ? ` - ${book.pageCount} pages` : ''})`}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className={`font-bold text-xs writing-mode-vertical-rl rotate-180 whitespace-nowrap overflow-hidden text-ellipsis max-h-full px-1 ${hasCustomColor ? '' : 'text-white'}`}>
+          <span className={`font-bold ${spineInfo.fontSize} writing-mode-vertical-rl rotate-180 whitespace-nowrap overflow-hidden text-ellipsis max-h-full px-1 ${hasCustomColor ? '' : 'text-white'}`}>
             {book.title}
           </span>
         </div>
