@@ -1,14 +1,5 @@
 import { NextResponse } from "next/server"
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  cover: string
-  isbn: string
-  first_publish_year: number | string
-  publisher: string
-}
+import type { Book, ReadingStatus } from "@/types/book"
 
 let books: Book[] = []
 
@@ -26,9 +17,34 @@ export async function POST(request: Request) {
     isbn: book.isbn || "N/A",
     first_publish_year: book.first_publish_year || "N/A",
     publisher: book.publisher || "N/A",
+    status: book.status || 'imprisoned',
+    dateAdded: new Date().toISOString(),
+    pageCount: book.number_of_pages_median || book.pageCount,
   }
   books.push(newBook)
   return NextResponse.json(newBook)
+}
+
+export async function PATCH(request: Request) {
+  const { id, status, dateCompleted } = await request.json()
+
+  if (!id) {
+    return NextResponse.json({ error: "Book ID is required" }, { status: 400 })
+  }
+
+  const bookIndex = books.findIndex((book) => book.id === id)
+
+  if (bookIndex === -1) {
+    return NextResponse.json({ error: "Book not found" }, { status: 404 })
+  }
+
+  books[bookIndex] = {
+    ...books[bookIndex],
+    status: status || books[bookIndex].status,
+    dateCompleted: status === 'escaped' ? (dateCompleted || new Date().toISOString()) : undefined,
+  }
+
+  return NextResponse.json(books[bookIndex])
 }
 
 export async function DELETE(request: Request) {
