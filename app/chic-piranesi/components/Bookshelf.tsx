@@ -203,14 +203,22 @@ export default function Bookshelf({ selectedShelfId }: BookshelfProps) {
                 onStatusChange={(status) => handleStatusChange(hoveredBook.id, status)}
               />
             </div>
-            <div className="mt-2">
-              <StatusBadge status={hoveredBook.status} className="mb-2" />
+            <div className="mt-2 flex items-center gap-2 flex-wrap">
+              <StatusBadge status={hoveredBook.status} />
+              {hoveredBook.pageCount && (() => {
+                const spineInfo = getSpineStyles(hoveredBook.pageCount)
+                return (
+                  <span className="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-700">
+                    {spineInfo.description} ({spineInfo.width}px spine)
+                  </span>
+                )
+              })()}
             </div>
-            <p className="text-gray-500 text-sm mt-1">ISBN: {hoveredBook.isbn}</p>
+            <p className="text-gray-500 text-sm mt-2">ISBN: {hoveredBook.isbn}</p>
             <p className="text-gray-500 text-sm">First Published: {hoveredBook.first_publish_year}</p>
             <p className="text-gray-500 text-sm">Publisher: {hoveredBook.publisher}</p>
             {hoveredBook.pageCount && (
-              <p className="text-gray-500 text-sm">Pages: {hoveredBook.pageCount}</p>
+              <p className="text-gray-500 text-sm font-semibold">Pages: {hoveredBook.pageCount}</p>
             )}
           </div>
         </div>
